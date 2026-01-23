@@ -27,7 +27,14 @@ async function main() {
 		},
 	})
 
-	console.log('Seed finished:', { user, category, product })
+	const order = await prisma.order.create({
+		data: {
+			userId: user.id,
+			total: 500,
+		},
+	})
+
+	console.log('Seed finished:', { user, category, product, order })
 }
 
 main()
