@@ -12,7 +12,9 @@ type ProductRequestBody = {
 
 // GET /api/products
 export async function GET() {
-	const products = await prisma.product.findMany()
+	const products = await prisma.product.findMany({
+		include: { category: true },
+	})
 
 	return NextResponse.json(products)
 }
@@ -25,7 +27,7 @@ export async function POST(request: Request) {
 		if (!body.name || !body.price || !body.categoryId || !body.stock) {
 			return NextResponse.json(
 				{ message: 'All fields are required' },
-				{ status: 400 }
+				{ status: 400 },
 			)
 		}
 
@@ -38,7 +40,7 @@ export async function POST(request: Request) {
 		console.error('Error creating product:', error)
 		return NextResponse.json(
 			{ message: 'Internal Server Error' },
-			{ status: 500 }
+			{ status: 500 },
 		)
 	}
 }
