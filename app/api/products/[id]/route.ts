@@ -20,6 +20,7 @@ export async function GET(request: Request, { params }: Params) {
 
 	const product = await prisma.product.findUnique({
 		where: { id: Number(id) },
+		include: { category: true },
 	})
 	return NextResponse.json(product)
 }
@@ -34,19 +35,14 @@ export async function PUT(request: Request, { params }: Params) {
 		if (!body.name) {
 			return NextResponse.json(
 				{ message: 'All fields are required' },
-				{ status: 400 }
+				{ status: 400 },
 			)
 		}
 
 		const updatedProduct = await prisma.product.update({
 			where: { id: Number(id) },
 			data: {
-				name: body.name,
-				price: body.price,
-				stock: body.stock,
-				categoryId: body.categoryId,
-				image: body.image,
-				description: body.description,
+				...body,
 			},
 		})
 
@@ -55,7 +51,7 @@ export async function PUT(request: Request, { params }: Params) {
 		console.error('Error updating product:', error)
 		return NextResponse.json(
 			{ message: 'Internal Server Error' },
-			{ status: 500 }
+			{ status: 500 },
 		)
 	}
 }
@@ -72,7 +68,7 @@ export async function DELETE(request: Request, { params }: Params) {
 		if (productInOrder > 0) {
 			return NextResponse.json(
 				{ message: 'Cannot delete: product is in orders' },
-				{ status: 400 }
+				{ status: 400 },
 			)
 		}
 
@@ -83,12 +79,12 @@ export async function DELETE(request: Request, { params }: Params) {
 		console.error('Error deleting product:', error)
 		return NextResponse.json(
 			{ message: 'Internal Server Error' },
-			{ status: 500 }
+			{ status: 500 },
 		)
 	}
 
 	return NextResponse.json(
 		{ message: 'Product deleted successfully' },
-		{ status: 200 }
+		{ status: 200 },
 	)
 }
