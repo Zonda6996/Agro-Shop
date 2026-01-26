@@ -4,7 +4,7 @@ import { OrderStatus } from '../../../../generated/prisma/enums'
 
 type OrderRequestBody = {
 	userId: number
-	total?: number // temporary (will calculate later)
+	total?: number 
 	status?: OrderStatus
 }
 

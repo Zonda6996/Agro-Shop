@@ -17,7 +17,7 @@ export async function GET(request: Request, { params }: Params) {
 
 	const orderItem = await prisma.orderItem.findUnique({
 		where: { id: Number(id) },
-		include: {product: true}
+		include: { product: true },
 	})
 	return NextResponse.json(orderItem)
 }
@@ -31,12 +31,20 @@ export async function PUT(request: Request, { params }: Params) {
 
 		const orderItem = await prisma.orderItem.findUnique({
 			where: { id: Number(id) },
+			include: { order: true },
 		})
 
 		if (!orderItem) {
 			return NextResponse.json(
 				{ message: 'Order item not found' },
 				{ status: 404 },
+			)
+		}
+
+		if (orderItem.order.status !== 'PENDING') {
+			return NextResponse.json(
+				{ message: 'Cannot update item of a processed order' },
+				{ status: 400 },
 			)
 		}
 
@@ -76,12 +84,20 @@ export async function DELETE(request: Request, { params }: Params) {
 
 		const orderItem = await prisma.orderItem.findUnique({
 			where: { id: Number(id) },
+			include: { order: true },
 		})
 
 		if (!orderItem) {
 			return NextResponse.json(
 				{ message: 'Order item not found' },
 				{ status: 404 },
+			)
+		}
+
+		if (orderItem.order.status !== 'PENDING') {
+			return NextResponse.json(
+				{ message: 'Cannot delete item of a processed order' },
+				{ status: 400 },
 			)
 		}
 
