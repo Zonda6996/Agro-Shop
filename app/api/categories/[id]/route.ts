@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma'
+import prisma from '@/shared/lib/prisma'
 import { NextResponse } from 'next/server'
 
 type CategoryRequestBody = {
@@ -37,7 +37,7 @@ export async function PUT(request: Request, { params }: Params) {
 		console.error('Error updating category:', error)
 		return NextResponse.json(
 			{ message: 'Internal Server Error' },
-			{ status: 500 }
+			{ status: 500 },
 		)
 	}
 }
@@ -54,7 +54,7 @@ export async function DELETE(request: Request, { params }: Params) {
 		if (productsCount > 0) {
 			return NextResponse.json(
 				{ message: 'Category has products and cannot be deleted' },
-				{ status: 400 }
+				{ status: 400 },
 			)
 		}
 
@@ -65,12 +65,12 @@ export async function DELETE(request: Request, { params }: Params) {
 		console.error('Error deleting category:', error)
 		return NextResponse.json(
 			{ message: 'Internal Server Error' },
-			{ status: 500 }
+			{ status: 500 },
 		)
 	}
 
 	return NextResponse.json(
 		{ message: 'Category deleted successfully' },
-		{ status: 200 }
+		{ status: 200 },
 	)
 }

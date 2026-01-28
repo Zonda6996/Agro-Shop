@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma'
+import prisma from '@/shared/lib/prisma'
 import { NextResponse } from 'next/server'
 
 type CategoryRequestBody = {
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 		console.error('Error creating category:', error)
 		return NextResponse.json(
 			{ message: 'Internal Server Error' },
-			{ status: 500 }
+			{ status: 500 },
 		)
 	}
 }

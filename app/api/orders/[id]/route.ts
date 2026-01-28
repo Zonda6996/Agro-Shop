@@ -1,10 +1,10 @@
-import prisma from '@/lib/prisma'
+import prisma from '@/shared/lib/prisma'
 import { NextResponse } from 'next/server'
 import { OrderStatus } from '../../../../generated/prisma/enums'
 
 type OrderRequestBody = {
 	userId: number
-	total?: number 
+	total?: number
 	status?: OrderStatus
 }
 
