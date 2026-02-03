@@ -5,6 +5,9 @@ import { inter, poppins } from './shared/ui/fonts/fonts'
 export const metadata: Metadata = {
 	title: 'Agro Shop',
 	description: 'Agro shop built with Next.js and Tailwind CSS',
+	icons: {
+		icon: '/favicon.ico',
+	},
 }
 
 export default function RootLayout({
