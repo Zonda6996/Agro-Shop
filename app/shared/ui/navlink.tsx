@@ -15,7 +15,7 @@ interface NavlinkProps {
 export const Navlink = ({
 	children,
 	href,
-	activeClassName = 'bg-primary text-white shadow hover:bg-primary/80',
+	activeClassName = 'bg-primary text-primary-foreground shadow hover:bg-primary-hover',
 	className = 'text-primary hover:bg-green-200/50',
 }: NavlinkProps) => {
 	const currentPath = usePathname()

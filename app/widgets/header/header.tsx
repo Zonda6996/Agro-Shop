@@ -29,14 +29,14 @@ export const Header = () => {
 				</nav>
 				<div className=' flex gap-3 items-center font-medium rounded-full '>
 					<Link
-						className='py-1.5 px-2 rounded-full hover:bg-primary-hover transition'
+						className='py-1.5 px-2 rounded-full hover:bg-foreground-hover transition'
 						href={'/'}
 					>
 						Войти
 					</Link>
 					<Separator className='w-[0.8px]! h-4' orientation='vertical' />
 					<Link
-						className='py-1.5 px-2 rounded-full hover:bg-primary-hover transition'
+						className='py-1.5 px-2 rounded-full hover:bg-foreground-hover transition'
 						href={'/'}
 					>
 						Регистрация
