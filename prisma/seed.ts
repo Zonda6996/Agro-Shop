@@ -4,23 +4,21 @@ console.log(process.env.DATABASE_URL)
 
 async function main() {
 	const categories = [
-		'Семена',
-		'Оборудование',
-		'Удобрения',
-		'Защита растений',
-		'Полив и орошение',
-		'Садовые инструменты',
-		'Теплицы и укрывные материалы',
-		'Товары для животноводства',
+		{ name: 'Семена', slug: 'seeds' },
+		{ name: 'Оборудование', slug: 'equipment' },
+		{ name: 'Удобрения', slug: 'fertilizers' },
+		{ name: 'Защита растений', slug: 'plant-protection' },
+		{ name: 'Полив и орошение', slug: 'irrigation' },
+		{ name: 'Садовые инструменты', slug: 'garden-tools' },
+		{ name: 'Теплицы и укрывные материалы', slug: 'greenhouse-materials' },
+		{ name: 'Товары для животноводства', slug: 'animal-products' },
 	]
 
 	const categoryRecords = []
 
-	for (const name of categories) {
-		const category = await prisma.category.upsert({
-			where: { name },
-			update: {},
-			create: { name },
+	for (const item of categories) {
+		const category = await prisma.category.create({
+			data: { name: item.name, slug: item.slug },
 		})
 		categoryRecords.push(category)
 	}
