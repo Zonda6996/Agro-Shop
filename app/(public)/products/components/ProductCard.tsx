@@ -1,14 +1,21 @@
 import { Button } from '@/shared/ui/button'
 import { MoveRightIcon } from 'lucide-react'
-import { ProductCardProps } from '@/api/products/types'
+import { Category, Product } from '../../../../generated/prisma/client'
+
+interface ProductWithCategory extends Product {
+	category: Category
+}
 
 export const ProductCard = ({
+	categoryId,
+	description,
 	id,
 	name,
 	price,
-	category,
 	stock,
-}: ProductCardProps) => {
+	image,
+	category,
+}: ProductWithCategory) => {
 	return (
 		<div className='grid group relative rounded-3xl p-6 bg-linear-to-b from-white via-white to-gray-50 shadow-md transition-all hover:shadow-2xl hover:-translate-y-1 hover:scale-101 duration-300'>
 			<div className='aspect-square bg-gray-100 rounded-2xl mb-5 flex items-center justify-center text-gray-400 font-semibold text-sm uppercase tracking-wide'>
@@ -16,7 +23,7 @@ export const ProductCard = ({
 			</div>
 
 			<span className='text-xs text-gray-500 uppercase tracking-wider'>
-				{category}
+				{category.name}
 			</span>
 
 			<div>
@@ -25,7 +32,9 @@ export const ProductCard = ({
 			</div>
 
 			<div className='flex items-center justify-between mt-5'>
-				<span className='text-xl font-extrabold text-gray-900'>{price} ₸</span>
+				<span className='text-xl font-extrabold text-gray-900'>
+					{price.toString()} ₸
+				</span>
 				<Button
 					size='sm'
 					variant='default'
