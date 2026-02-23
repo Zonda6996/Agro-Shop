@@ -1,28 +1,27 @@
-'use client'
-
 import { Container } from '@/widgets/container/container'
-import { ProductCard } from './components/ProductCard'
 import { Filters } from './components/Filters'
-import { useProductsFilter } from '@/shared/hooks/useProductsFilter'
+import { SortOption } from '@/api/products/types'
+import { ProductList } from './components/ProductList'
+import { Search } from './components/Search'
 
-const ProductsPage = () => {
-	const { filteredProducts, setSort, category } = useProductsFilter()
+interface ProductsPageProps {
+	searchParams: Promise<{
+		category?: string
+		sort?: SortOption
+		query?: string
+	}>
+}
 
+const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
+	const { category, sort, query } = await searchParams
 	return (
 		<div>
 			<Container>
-				<Filters onSortChange={setSort} category={category} />
-				<div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 mt-6'>
-					{filteredProducts.length === 0 ? (
-						<div className='col-span-full text-center text-lg text-muted-foreground'>
-							Нет товаров, соответствующих выбранным фильтрам.
-						</div>
-					) : null}
-
-					{filteredProducts.map(product => (
-						<ProductCard key={product.id} {...product} />
-					))}
+				<div className='grid md:grid-cols-3 grid-cols-1 gap-4 items-center'>
+					<Filters />
+					<Search />
 				</div>
+				<ProductList category={category} sort={sort} search={query} />
 			</Container>
 		</div>
 	)

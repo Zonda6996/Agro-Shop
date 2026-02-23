@@ -1,3 +1,5 @@
+'use client'
+
 import {
 	Select,
 	SelectContent,
@@ -8,22 +10,25 @@ import {
 	SelectValue,
 } from '@/shared/ui/select'
 import { ChartBarDecreasingIcon } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-export const CategorySelect = ({ category }: { category: string | null }) => {
+export const CategorySelect = () => {
 	const router = useRouter()
+	const searchParams = useSearchParams()
+
+	const currentCategory = searchParams.get('category')
+
+	const onChange = (value: string) => {
+		const params = new URLSearchParams(searchParams.toString())
+		
+		if (value === 'all') params.delete('category')
+		else params.set('category', value)
+
+		router.push(`?${params.toString()}`)
+	}
 
 	return (
-		<Select
-			value={category || 'all'}
-			onValueChange={value => {
-				if (value === 'all') {
-					router.push('/products')
-				} else {
-					router.push(`/products?category=${value}`)
-				}
-			}}
-		>
+		<Select value={currentCategory || 'all'} onValueChange={onChange}>
 			<SelectTrigger className='w-full max-w-56'>
 				<ChartBarDecreasingIcon />
 				<SelectValue placeholder='Категория' />
