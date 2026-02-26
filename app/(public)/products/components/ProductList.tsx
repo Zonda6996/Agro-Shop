@@ -1,7 +1,6 @@
 import { SortOption } from '@/api/products/types'
 import { ProductCard } from './ProductCard'
 import prisma from '@/shared/lib/prisma'
-import { SkeletonProduct } from '../ui/SkeletonProduct'
 
 interface ProductListProps {
 	category?: string

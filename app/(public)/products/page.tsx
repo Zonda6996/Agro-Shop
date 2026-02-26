@@ -4,8 +4,6 @@ import { SortOption } from '@/api/products/types'
 import { ProductList } from './components/ProductList'
 import { Search } from './components/Search'
 import { Suspense } from 'react'
-import { Card, CardContent, CardHeader } from '@/shared/ui/card'
-import { Skeleton } from '@/shared/ui/skeleton'
 import { SkeletonProduct } from './ui/SkeletonProduct'
 
 interface ProductsPageProps {
@@ -18,8 +16,8 @@ interface ProductsPageProps {
 
 const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 	const { category, sort, query } = await searchParams
-
 	const queryString = `${category}-${sort}-${query}`
+
 	return (
 		<div>
 			<Container>
