@@ -6,4 +6,4 @@ export interface ProductCardProps {
 	stock: number
 }
 
-export type SortOption = 'price-asc' | 'price-desc'
+export type SortOption = 'price-asc' | 'price-desc' | 'popular'

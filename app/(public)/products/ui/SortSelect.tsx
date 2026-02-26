@@ -1,5 +1,6 @@
 'use client'
 
+import { SortOption } from '@/api/products/types'
 import {
 	Select,
 	SelectContent,
@@ -18,7 +19,7 @@ export const SortSelect = () => {
 
 	const currentSort = searchParams.get('sort')
 
-	const onChange = (value: string) => {
+	const onChange = (value: SortOption) => {
 		const params = new URLSearchParams(searchParams.toString())
 
 		if (value === 'popular') params.delete('sort')
