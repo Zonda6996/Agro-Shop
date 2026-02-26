@@ -17,8 +17,10 @@ async function main() {
 	const categoryRecords = []
 
 	for (const item of categories) {
-		const category = await prisma.category.create({
-			data: { name: item.name, slug: item.slug },
+		const category = await prisma.category.upsert({
+			where: { slug: item.slug },
+			update: {},
+			create: { name: item.name, slug: item.slug },
 		})
 		categoryRecords.push(category)
 	}
