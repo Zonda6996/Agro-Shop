@@ -1,17 +1,21 @@
+import prisma from '@/shared/lib/prisma'
 import { SquareArrowOutUpRight } from 'lucide-react'
 
-export const Stats = () => {
+export const Stats = async () => {
+	const productCount = await prisma.product.count()
+	const categoryCount = await prisma.category.count()
+
 	return (
 		<div className='grid md:grid-cols-3 grid-cols-1 gap-4 mt-25 font-[Montserrat]'>
 			<div className='flex items-center justify-between py-6 px-10 rounded-2xl bg-gray-200'>
 				<div className=''>
-					<p className='mb-2 text-4xl tracking-tighter font-bold'>500+</p>
+					<p className='mb-2 text-4xl tracking-tighter font-bold'>{productCount}+</p>
 					<p className='text-sm tracking-tight uppercase'>Товаров</p>
 				</div>
 			</div>
 			<div className='flex items-center justify-between py-6 px-10 rounded-2xl bg-gray-200'>
 				<div className=''>
-					<p className='mb-2 text-4xl tracking-tighter font-bold'>20+</p>
+					<p className='mb-2 text-4xl tracking-tighter font-bold'>{categoryCount}+</p>
 					<p className='text-sm tracking-tight uppercase'>Категорий</p>
 				</div>
 				<SquareArrowOutUpRight className='cursor-pointer p-2 w-12 h-12 bg-gray-300 rounded-2xl hover:bg-gray-400/35 transition-colors' />
