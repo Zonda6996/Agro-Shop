@@ -1,7 +1,9 @@
 import { Button } from '@/shared/ui/button'
 import { MoveRightIcon, ShoppingCartIcon } from 'lucide-react'
-import { Category, Product } from '../../../../generated/prisma/client'
+import { Category, Product } from '@/shared/types'
 import { Badge } from '@/shared/ui/badge'
+import Link from 'next/link'
+import { ROUTES } from '@/shared/lib/routes'
 
 interface ProductWithCategory extends Product {
 	category: Category
@@ -22,9 +24,11 @@ export const ProductCard = ({
 
 	return (
 		<div className='grid group relative rounded-3xl p-4 bg-linear-to-b from-white via-white to-gray-50 shadow-md transition-all hover:shadow-2xl hover:-translate-y-1 hover:scale-101 duration-300'>
-			<div className='aspect-square bg-gray-100 rounded-2xl mb-5 flex items-center justify-center text-gray-400 font-semibold text-sm uppercase tracking-wide'>
-				Фото скоро
-			</div>
+			<Link href={ROUTES.PRODUCT(id)}>
+				<div className='aspect-square bg-gray-100 rounded-2xl mb-5 flex items-center justify-center text-gray-400 font-semibold text-sm uppercase tracking-wide'>
+					Фото скоро
+				</div>
+			</Link>
 
 			<span className='text-xs text-gray-500 uppercase tracking-wider'>
 				{category.name}
@@ -60,14 +64,16 @@ export const ProductCard = ({
 			</div>
 
 			<div className='flex items-center justify-between mt-3'>
-				<Button
-					size='sm'
-					variant='secondary'
-					className='max-w-29 hover:bg-gray-200'
-				>
-					Подробнее
-					<MoveRightIcon className='ml-2 h-4 w-4' />
-				</Button>
+				<Link href={ROUTES.PRODUCT(id)}>
+					<Button
+						size='sm'
+						variant='secondary'
+						className='max-w-29 hover:bg-gray-200'
+					>
+						Подробнее
+						<MoveRightIcon className='ml-2 h-4 w-4' />
+					</Button>
+				</Link>
 				<Button className='w-1/2' size={'sm'} variant={'default'}>
 					В корзину
 					<ShoppingCartIcon className='ml-2 h-4 w-4' />
