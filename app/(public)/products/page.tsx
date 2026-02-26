@@ -3,6 +3,10 @@ import { Filters } from './components/Filters'
 import { SortOption } from '@/api/products/types'
 import { ProductList } from './components/ProductList'
 import { Search } from './components/Search'
+import { Suspense } from 'react'
+import { Card, CardContent, CardHeader } from '@/shared/ui/card'
+import { Skeleton } from '@/shared/ui/skeleton'
+import { SkeletonProduct } from './ui/SkeletonProduct'
 
 interface ProductsPageProps {
 	searchParams: Promise<{
@@ -14,6 +18,8 @@ interface ProductsPageProps {
 
 const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 	const { category, sort, query } = await searchParams
+
+	const queryString = `${category}-${sort}-${query}`
 	return (
 		<div>
 			<Container>
@@ -21,7 +27,18 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 					<Filters />
 					<Search />
 				</div>
-				<ProductList category={category} sort={sort} search={query} />
+				<Suspense
+					key={queryString}
+					fallback={
+						<div className='grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 mt-6'>
+							{Array.from({ length: 10 }).map((_, index) => (
+								<SkeletonProduct key={index} />
+							))}
+						</div>
+					}
+				>
+					<ProductList category={category} sort={sort} search={query} />
+				</Suspense>
 			</Container>
 		</div>
 	)
