@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 
 type CategoryRequestBody = {
 	name: string
+	slug: string
 }
 
 // GET /api/categories
