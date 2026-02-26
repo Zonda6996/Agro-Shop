@@ -3,7 +3,7 @@ import { Skeleton } from '@/shared/ui/skeleton'
 
 export const SkeletonProduct = () => {
 	return (
-		<Card className='border-0'>
+		<Card className='rounded-3xl border-0'>
 			<CardContent>
 				<Skeleton className='aspect-square w-full max-h-60' />
 			</CardContent>
