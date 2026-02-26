@@ -4,9 +4,9 @@ export default function AppLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
-		<>
-			<Header />
-			<main className='min-h-screen mt-5 bg-background'>{children}</main>
-		</>
+			<div className='min-h-screen flex flex-col bg-background'>
+				<Header />
+				<main className='flex-1 mt-5 flex flex-col'>{children}</main>
+			</div>
 	)
 }
