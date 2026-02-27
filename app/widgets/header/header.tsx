@@ -2,8 +2,9 @@ import { ROUTES } from '@/shared/lib/routes'
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../../public/logo/logo.svg'
-import { Separator } from '@/shared/ui/separator'
 import { Navlink } from '@/shared/ui/navlink'
+import { Separator } from '@/shared/ui/separator'
+import { CartSheet } from '../cart/CartSheet'
 
 export const Header = () => {
 	return (
@@ -22,19 +23,20 @@ export const Header = () => {
 					<ul className='flex items-center gap-3 p-1 rounded-full bg-green-100/50 shadow-sm'>
 						<Navlink href={ROUTES.HOME}>Главная</Navlink>
 						<Navlink href={ROUTES.PRODUCTS}>Ассортимент</Navlink>
-						<Navlink href='/catalog'>Каталог</Navlink>
+						<Navlink href={ROUTES.CART}>Корзина</Navlink>
 						<Navlink href='/partners'>Партнёры</Navlink>
 						<Navlink href='/about'>О нас</Navlink>
 					</ul>
 				</nav>
-				<div className=' flex gap-3 items-center font-medium rounded-full '>
+				<div className='flex gap-2 items-center font-medium rounded-full '>
+					<CartSheet />
 					<Link
 						className='py-1.5 px-2 rounded-full hover:bg-foreground-hover transition'
 						href={'/'}
 					>
 						Войти
 					</Link>
-					<Separator className='w-[0.8px]! h-4' orientation='vertical' />
+					<Separator className='w-[0.8px]! h-4!' orientation='vertical' />
 					<Link
 						className='py-1.5 px-2 rounded-full hover:bg-foreground-hover transition'
 						href={'/'}
