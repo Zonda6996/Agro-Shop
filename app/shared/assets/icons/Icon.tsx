@@ -171,3 +171,41 @@ export const FarmIcon = ({ size = 24, className, ...props }: IconProps) => (
 		/>
 	</svg>
 )
+
+export const ShoppingCartGearIcon = ({
+	size = 24,
+	className,
+	...props
+}: IconProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox='0 0 24 24'
+		fill='none'
+		xmlns='http://www.w3.org/2000/svg'
+		className={className}
+		{...props}
+	>
+		<path
+			d='M4 19C4 19.5304 4.21071 20.0391 4.58579 20.4142C4.96086 20.7893 5.46957 21 6 21C6.53043 21 7.03914 20.7893 7.41421 20.4142C7.78929 20.0391 8 19.5304 8 19C8 18.4696 7.78929 17.9609 7.41421 17.5858C7.03914 17.2107 6.53043 17 6 17C5.46957 17 4.96086 17.2107 4.58579 17.5858C4.21071 17.9609 4 18.4696 4 19Z'
+			stroke='currentColor'
+			strokeWidth='1'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+		<path
+			d='M12 17H6V3H4'
+			stroke='currentColor'
+			strokeWidth='1'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+		<path
+			d='M6 5L20 6L19.21 11.526M16 13H6M19.001 21C18.4706 21 17.9619 20.7893 17.5868 20.4142C17.2117 20.0391 17.001 19.5304 17.001 19C17.001 18.4696 17.2117 17.9609 17.5868 17.5858C17.9619 17.2107 18.4706 17 19.001 17M19.001 21C19.5314 21 20.0401 20.7893 20.4152 20.4142C20.7903 20.0391 21.001 19.5304 21.001 19C21.001 18.4696 20.7903 17.9609 20.4152 17.5858C20.0401 17.2107 19.5314 17 19.001 17M19.001 21V22.5M19.001 17V15.5M22.032 17.25L20.733 18M17.27 20L15.97 20.75M15.97 17.25L17.27 18M20.733 20L22.033 20.75'
+			stroke='currentColor'
+			strokeWidth='1'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+	</svg>
+)
