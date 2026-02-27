@@ -1,17 +1,14 @@
+'use client'
+
 import { Button } from '@/shared/ui/button'
 import { MoveRightIcon, ShoppingCartIcon } from 'lucide-react'
-import { Category, Product } from '@/shared/types'
 import { Badge } from '@/shared/ui/badge'
 import Link from 'next/link'
 import { ROUTES } from '@/shared/lib/routes'
-
-interface ProductWithCategory extends Product {
-	category: Category
-}
+import { useCartStore } from '@/shared/store/cartStore'
+import { SerializedProduct } from '@/shared/types'
 
 export const ProductCard = ({
-	categoryId,
-	description,
 	id,
 	name,
 	price,
@@ -19,8 +16,9 @@ export const ProductCard = ({
 	image,
 	category,
 	isFeatured,
-}: ProductWithCategory) => {
+}: SerializedProduct) => {
 	const finalPrice = isFeatured ? Number(price) * 0.75 : Number(price)
+	const addItem = useCartStore(state => state.addItem)
 
 	return (
 		<div className='grid group relative rounded-3xl p-4 bg-linear-to-b from-white via-white to-gray-50 shadow-md transition-all hover:shadow-2xl hover:-translate-y-1 hover:scale-101 duration-300'>
@@ -74,7 +72,12 @@ export const ProductCard = ({
 						<MoveRightIcon className='ml-2 h-4 w-4' />
 					</Button>
 				</Link>
-				<Button className='w-1/2' size={'sm'} variant={'default'}>
+				<Button
+					className='w-1/2'
+					size={'sm'}
+					variant={'default'}
+					onClick={() => addItem({ id, name, price: finalPrice, image })}
+				>
 					В корзину
 					<ShoppingCartIcon className='ml-2 h-4 w-4' />
 				</Button>

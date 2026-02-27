@@ -1,11 +1,11 @@
-import prisma from '@/shared/lib/prisma'
 import { ROUTES } from '@/shared/lib/routes'
 import { Badge } from '@/shared/ui/badge'
-import { Button } from '@/shared/ui/button'
 import { Container } from '@/widgets/container/container'
-import { ArrowLeftIcon, ShoppingCartIcon } from 'lucide-react'
+import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { AddToCartButton } from './components/AddToCartButton'
+import { getProductById } from '@/shared/lib/api/products'
 
 interface ProductPageProps {
 	params: Promise<{ id: string }>
@@ -14,10 +14,7 @@ interface ProductPageProps {
 const ProductPage = async ({ params }: ProductPageProps) => {
 	const { id } = await params
 
-	const product = await prisma.product.findUnique({
-		where: { id: Number(id) },
-		include: { category: true },
-	})
+	const product = await getProductById(Number(id))
 
 	if (!product) notFound()
 
@@ -36,12 +33,10 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 			</Link>
 
 			<div className='grid md:grid-cols-2 grid-cols-1 gap-12 mt-8'>
-				{/* Фото */}
 				<div className='aspect-square bg-gray-100 border rounded-3xl flex items-center justify-center text-gray-400 font-semibold uppercase tracking-wide'>
 					Фото скоро
 				</div>
 
-				{/* Инфо */}
 				<div className='flex flex-col gap-6 self-start'>
 					<div>
 						<span className='text-xs text-gray-500 uppercase tracking-wider'>
@@ -50,7 +45,6 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 						<h1 className='text-3xl font-bold mt-2'>{product.name}</h1>
 					</div>
 
-					{/* Цена */}
 					<div className='flex items-center gap-3'>
 						<span className='text-4xl font-bold text-gray-900'>
 							{finalPrice.toFixed(0)} ₸
@@ -65,7 +59,6 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 						)}
 					</div>
 
-					{/* Наличие */}
 					{product.stock < 5 ? (
 						<Badge variant='destructive' className='w-fit'>
 							Осталось мало ({product.stock} шт.)
@@ -76,7 +69,6 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 						</Badge>
 					)}
 
-					{/* Описание */}
 					{product.description && (
 						<div>
 							<h2 className='font-semibold text-lg mb-2'>Описание</h2>
@@ -86,12 +78,13 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 						</div>
 					)}
 
-					{/* Кнопки */}
 					<div className='flex gap-3'>
-						<Button size='lg' className='flex-1'>
-							В корзину
-							<ShoppingCartIcon className='mr-2 h-5 w-5' />
-						</Button>
+						<AddToCartButton
+							id={product.id}
+							name={product.name}
+							price={finalPrice}
+							image={product.image}
+						/>
 					</div>
 				</div>
 			</div>

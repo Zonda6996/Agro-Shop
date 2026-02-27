@@ -1,6 +1,6 @@
-import { SortOption } from '@/api/products/types'
+import { SortOption } from '@/shared/types'
 import { ProductCard } from './ProductCard'
-import prisma from '@/shared/lib/prisma'
+import { getProducts } from '@/shared/lib/api/products'
 
 interface ProductListProps {
 	category?: string
@@ -15,21 +15,7 @@ export const ProductList = async ({
 }: ProductListProps) => {
 	await new Promise(resolve => setTimeout(resolve, 1000))
 
-	const products = await prisma.product.findMany({
-		where: {
-			category: category && category !== 'all' ? { slug: category } : undefined,
-			name: search ? { contains: search, mode: 'insensitive' } : undefined,
-		},
-		include: { category: true },
-		orderBy: {
-			price:
-				sort === 'price-asc'
-					? 'asc'
-					: sort === 'price-desc'
-						? 'desc'
-						: undefined,
-		},
-	})
+	const products = await getProducts({ category, search, sort })
 
 	if (products.length === 0) {
 		return (
