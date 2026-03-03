@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { ROUTES } from '@/shared/lib/routes'
 import { useCartStore } from '@/shared/store/cartStore'
 import { SerializedProduct } from '@/shared/types'
+import { formatPrice } from '@/shared/lib/utils'
+import { QuantityStepper } from '@/shared/ui/quantityStepper'
 
 export const ProductCard = ({
 	id,
@@ -19,6 +21,10 @@ export const ProductCard = ({
 }: SerializedProduct) => {
 	const finalPrice = isFeatured ? Number(price) * 0.75 : Number(price)
 	const addItem = useCartStore(state => state.addItem)
+	const deleteItem = useCartStore(state => state.deleteItem)
+	const cartItem = useCartStore(state =>
+		state.items.find(item => item.id === id),
+	)
 
 	return (
 		<div className='grid group relative rounded-3xl p-4 bg-linear-to-b from-white via-white to-gray-50 shadow-md transition-all hover:shadow-2xl hover:-translate-y-1 hover:scale-101 duration-300'>
@@ -38,7 +44,7 @@ export const ProductCard = ({
 
 					<div className='flex items-center gap-3'>
 						<span className='text-xl font-semibold text-gray-900'>
-							{finalPrice.toFixed(0)} ₸
+							{formatPrice(finalPrice)} ₸
 						</span>
 						{isFeatured && (
 							<Badge className='bg-blue-200 text-blue-700 dark:bg-blue-950 dark:text-blue-300'>
@@ -72,15 +78,21 @@ export const ProductCard = ({
 						<MoveRightIcon className='ml-2 h-4 w-4' />
 					</Button>
 				</Link>
-				<Button
-					className='w-1/2'
-					size={'sm'}
-					variant={'default'}
-					onClick={() => addItem({ id, name, price: finalPrice, image })}
-				>
-					В корзину
-					<ShoppingCartIcon className='ml-2 h-4 w-4' />
-				</Button>
+				{cartItem ? (
+					<QuantityStepper
+						quantity={cartItem.quantity}
+						onIncrease={() => addItem(cartItem)}
+						onDecrease={() => deleteItem(cartItem.id)}
+					/>
+				) : (
+					<Button
+						className='w-1/2'
+						size='sm'
+						onClick={() => addItem({ id, name, price: finalPrice, image })}
+					>
+						В корзину <ShoppingCartIcon className='ml-2 h-4 w-4' />
+					</Button>
+				)}
 			</div>
 		</div>
 	)

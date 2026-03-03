@@ -1,6 +1,6 @@
 import { Container } from '@/widgets/container/container'
 import { Filters } from './components/Filters'
-import { SortOption } from '@/api/products/types'
+import { SortOption } from '@/shared/types'
 import { ProductList } from './components/ProductList'
 import { Search } from './components/Search'
 import { Suspense } from 'react'
