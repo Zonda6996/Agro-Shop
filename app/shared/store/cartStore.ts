@@ -1,7 +1,7 @@
 import { create, StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export interface CartItem {
+export interface CartItemProps {
 	id: number
 	name: string
 	price: number
@@ -9,10 +9,10 @@ export interface CartItem {
 	image?: string | null
 }
 
-type AddItemPayload = Omit<CartItem, 'quantity'>
+export type AddItemPayload = Omit<CartItemProps, 'quantity'>
 
-interface CartStore {
-	items: CartItem[]
+export interface CartStore {
+	items: CartItemProps[]
 	addItem: (product: AddItemPayload) => void
 	deleteItem: (id: number) => void
 	removeItem: (id: number) => void
