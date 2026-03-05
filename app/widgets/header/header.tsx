@@ -32,19 +32,6 @@ export const Header = () => {
 				<div className='flex gap-2 items-center font-medium rounded-full '>
 					<CartSheet />
 					<UserButton />
-					{/* <Link
-						className='py-1.5 px-2 rounded-full hover:bg-foreground-hover transition'
-						href={ROUTES.LOGIN}
-					>
-						Войти
-					</Link>
-					<Separator className='w-[0.8px]! h-4!' orientation='vertical' />
-					<Link
-						className='py-1.5 px-2 rounded-full hover:bg-foreground-hover transition'
-						href={'/'}
-					>
-						Регистрация
-					</Link> */}
 				</div>
 			</div>
 		</header>
