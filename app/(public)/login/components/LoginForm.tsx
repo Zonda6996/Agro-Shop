@@ -24,6 +24,7 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { ROUTES } from '@/shared/lib/routes'
 import Link from 'next/link'
+import { GoogleIcon } from '@/shared/assets/icons/Icon'
 
 export const LoginForm = ({
 	className,
@@ -31,6 +32,7 @@ export const LoginForm = ({
 }: React.ComponentProps<'div'>) => {
 	const router = useRouter()
 	const [serverError, setServerError] = useState<string | null>(null)
+	const [isGoogleLoading, setIsGoogleLoading] = useState(false)
 
 	const {
 		register,
@@ -113,12 +115,23 @@ export const LoginForm = ({
 								<Button type='submit' disabled={isSubmitting}>
 									{isSubmitting ? 'Входим...' : 'Войти'}
 								</Button>
-								<Button variant='outline' type='button'>
+								<Button
+									variant='outline'
+									type='button'
+									disabled={isGoogleLoading}
+									onClick={async () => {
+										setIsGoogleLoading(true)
+										await signIn('google', { callbackUrl: ROUTES.HOME })
+									}}
+								>
+									<GoogleIcon className='w-5! h-5!' />
 									Войти с помощью Google
 								</Button>
 								<FieldDescription className='text-center'>
-									Нет аккаунта?{' '}
-									<Link href={ROUTES.REGISTER}>Зарегистрироваться</Link>
+									Нет аккаунта?
+									<Link href={ROUTES.REGISTER} className='text-foreground'>
+										Зарегистрироваться
+									</Link>
 								</FieldDescription>
 							</Field>
 						</FieldGroup>

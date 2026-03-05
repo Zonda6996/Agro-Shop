@@ -24,6 +24,7 @@ import { useState } from 'react'
 import { ROUTES } from '@/shared/lib/routes'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { GoogleIcon } from '@/shared/assets/icons/Icon'
 
 export const RegisterForm = ({
 	...props
@@ -143,11 +144,19 @@ export const RegisterForm = ({
 								<Button type='submit' disabled={isSubmitting}>
 									{isSubmitting ? 'Регистрируем...' : 'Создать аккаунт'}
 								</Button>
-								<Button variant='outline' type='button'>
-									Зарегестрироваться с помощью Google
+								<Button
+									variant='outline'
+									type='button'
+									onClick={() => signIn('google', { redirectTo: ROUTES.HOME })}
+								>
+									<GoogleIcon className='w-5! h-5!' />
+									Зарегистрироваться с помощью Google
 								</Button>
 								<FieldDescription className='px-6 text-center'>
-									Уже есть аккаунт? <Link href={ROUTES.LOGIN}>Войти</Link>
+									Уже есть аккаунт?{' '}
+									<Link href={ROUTES.LOGIN} className='text-foreground'>
+										Войти
+									</Link>
 								</FieldDescription>
 							</Field>
 						</FieldGroup>
