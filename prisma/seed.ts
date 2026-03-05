@@ -1,4 +1,5 @@
 import prisma from '@/shared/lib/prisma'
+import bcrypt from 'bcryptjs'
 
 console.log(process.env.DATABASE_URL)
 
@@ -162,6 +163,18 @@ async function main() {
 	for (const product of products) {
 		await prisma.product.create({ data: product })
 	}
+
+	const hashedPassword = await bcrypt.hash('123456', 10)
+
+	await prisma.user.upsert({
+		where: { email: 'test@test.com' },
+		update: {},
+		create: {
+			email: 'test@test.com',
+			password: hashedPassword,
+			name: 'Test User',
+		},
+	})
 
 	console.log('Seed finished')
 }

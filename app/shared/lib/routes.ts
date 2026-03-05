@@ -4,4 +4,6 @@ export const ROUTES = {
 	PRODUCT: (id: number) => `products/${id}`,
 	CART: '/cart',
 	CHECKOUT: '/checkout',
+	LOGIN: '/login',
+	REGISTER: '/register',
 }

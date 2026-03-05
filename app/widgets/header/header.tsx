@@ -5,6 +5,7 @@ import Logo from '../../../public/logo/logo.svg'
 import { Navlink } from '@/shared/ui/navlink'
 import { Separator } from '@/shared/ui/separator'
 import { CartSheet } from '../cart/cartSheet'
+import UserButton from './UserButton'
 
 export const Header = () => {
 	return (
@@ -30,9 +31,10 @@ export const Header = () => {
 				</nav>
 				<div className='flex gap-2 items-center font-medium rounded-full '>
 					<CartSheet />
-					<Link
+					<UserButton />
+					{/* <Link
 						className='py-1.5 px-2 rounded-full hover:bg-foreground-hover transition'
-						href={'/'}
+						href={ROUTES.LOGIN}
 					>
 						Войти
 					</Link>
@@ -42,7 +44,7 @@ export const Header = () => {
 						href={'/'}
 					>
 						Регистрация
-					</Link>
+					</Link> */}
 				</div>
 			</div>
 		</header>
