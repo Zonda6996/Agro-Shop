@@ -5,7 +5,7 @@ export const loginSchema = z.object({
 	password: z
 		.string()
 		.min(1, 'Пароль обязателен')
-		.min(6, 'Пароль должен быть не менее 6 символов'),
+		.min(8, 'Пароль должен быть не менее 8 символов'),
 })
 
 export const registerSchema = z
@@ -18,7 +18,7 @@ export const registerSchema = z
 		password: z
 			.string()
 			.min(1, 'Пароль обязателен')
-			.min(6, 'Пароль должен быть не менее 6 символов'),
+			.min(8, 'Пароль должен быть не менее 8 символов'),
 		confirmPassword: z.string().min(1, 'Подтверждение пароля обязательно'),
 	})
 	.refine(data => data.password === data.confirmPassword, {
