@@ -7,4 +7,5 @@ export const ROUTES = {
 	LOGIN: '/login',
 	REGISTER: '/register',
 	ACCOUNT: '/account',
+	ORDER: (id: number) => `/orders/${id}`,
 }
