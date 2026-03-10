@@ -8,7 +8,9 @@ const UserButton = async () => {
 	const session = await auth()
 
 	if (session) {
-		return <UserDropdown name={session.user.name} email={session.user.email} />
+		return (
+			<UserDropdown name={session?.user?.name} email={session?.user?.email} />
+		)
 	}
 
 	return (

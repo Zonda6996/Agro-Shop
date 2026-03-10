@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../../public/logo/logo.svg'
 import { Navlink } from '@/shared/ui/navlink'
-import { Separator } from '@/shared/ui/separator'
 import { CartSheet } from '../cart/cartSheet'
 import UserButton from './UserButton'
 

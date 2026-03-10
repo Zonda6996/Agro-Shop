@@ -35,10 +35,22 @@ const UserDropdown = ({ name, email }: UserDropdownProps) => {
 						<p className='font-medium'>{name}</p>
 						<p className='text-xs text-gray-500 font-normal'>{email}</p>
 					</DropdownMenuLabel>
-					<DropdownMenuItem className='cursor-pointer'>
-						<Link href={ROUTES.ACCOUNT} className='flex items-center gap-2'>
-							<ShoppingBagIcon />
+					<DropdownMenuItem asChild className='cursor-pointer'>
+						<Link
+							href={ROUTES.ACCOUNT_ORDERS}
+							className='flex items-center gap-2'
+						>
+							<ShoppingBagIcon className='w-4 h-4' />
 							Мои заказы
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild className='cursor-pointer'>
+						<Link
+							href={ROUTES.ACCOUNT_PROFILE}
+							className='flex items-center gap-2'
+						>
+							<UserIcon className='w-4 h-4' />
+							Профиль
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
