@@ -15,6 +15,11 @@ enum OrderStatus {
   CANCELLED
 }
 
+enum DeliveryMethod {
+  PICKUP
+  DELIVERY
+}
+
 model User {
 	id Int @id @default(autoincrement())
 	email String @unique
@@ -53,8 +58,14 @@ model Order {
 	status OrderStatus @default(PENDING)
 	createdAt DateTime @default(now())
 
+	name String
+	phone String
+	address String?
+	paymentMethod String
+
 	user User @relation(fields: [userId], references: [id])
 	items OrderItem[]
+	deliveryMethod DeliveryMethod @default(PICKUP)
 }
 
 model OrderItem {
