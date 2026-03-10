@@ -6,7 +6,7 @@ import Link from 'next/link'
 const NotFound = () => {
 	return (
 		<div className='flex-1 flex items-center justify-center pb-40'>
-			<div className='flex flex-col justify-center items-center mx-auto p-5 rounded-3xl bg-gray-200'>
+			<div className='flex flex-col justify-center items-center mx-auto p-5 rounded-3xl bg-white'>
 				<div className='flex text-7xl items-center font-light heading'>
 					4<FlaskConicalOff className='w-16 h-16 text-primary' />4
 				</div>
