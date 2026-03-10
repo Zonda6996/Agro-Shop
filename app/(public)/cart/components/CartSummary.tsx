@@ -19,7 +19,7 @@ export const CartSummary = () => {
 	return (
 		<>
 			{totalItems > 0 && (
-				<div className='bg-white rounded-2xl p-6 flex flex-col gap-4 sticky top-6'>
+				<div className='bg-white rounded-2xl p-6 flex flex-col gap-4 sticky top-6 border'>
 					<h2 className='text-lg font-semibold'>Итого</h2>
 
 					<div className='flex flex-col gap-2 text-sm'>

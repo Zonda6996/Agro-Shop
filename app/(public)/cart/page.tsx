@@ -28,7 +28,7 @@ const CartPage = () => {
 			<div className='grid lg:grid-cols-3 grid-cols-1 gap-8 mt-6'>
 				<div
 					className={clsx(
-						'bg-white rounded-2xl p-6',
+						'bg-white rounded-2xl p-6 border',
 						totalItems > 0 ? 'lg:col-span-2' : 'lg:col-span-3',
 					)}
 				>
