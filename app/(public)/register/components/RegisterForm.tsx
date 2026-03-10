@@ -25,12 +25,14 @@ import { ROUTES } from '@/shared/lib/routes'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { GoogleIcon } from '@/shared/assets/icons/Icon'
+import { Spinner } from '@/shared/ui/spinner'
 
 export const RegisterForm = ({
 	...props
 }: React.ComponentProps<typeof Card>) => {
 	const router = useRouter()
 	const [serverError, setServerError] = useState<string | null>(null)
+	const [isGoogleLoading, setIsGoogleLoading] = useState(false)
 
 	const {
 		register,
@@ -142,18 +144,24 @@ export const RegisterForm = ({
 						<FieldGroup>
 							<Field>
 								<Button type='submit' disabled={isSubmitting}>
-									{isSubmitting ? 'Регистрируем...' : 'Создать аккаунт'}
+									{isSubmitting && <Spinner/>}
+									Создать аккаунт
 								</Button>
 								<Button
 									variant='outline'
 									type='button'
-									onClick={() => signIn('google', { redirectTo: ROUTES.HOME })}
+									disabled={isGoogleLoading}
+									onClick={async () => {
+										setIsGoogleLoading(true)
+										await signIn('google', { callbackUrl: ROUTES.HOME })
+									}}
 								>
 									<GoogleIcon className='w-5! h-5!' />
 									Зарегистрироваться с помощью Google
+									{isGoogleLoading && <Spinner />}
 								</Button>
 								<FieldDescription className='px-6 text-center'>
-									Уже есть аккаунт?{' '}
+									Уже есть аккаунт?
 									<Link href={ROUTES.LOGIN} className='text-foreground'>
 										Войти
 									</Link>

@@ -25,6 +25,7 @@ import { signIn } from 'next-auth/react'
 import { ROUTES } from '@/shared/lib/routes'
 import Link from 'next/link'
 import { GoogleIcon } from '@/shared/assets/icons/Icon'
+import { Spinner } from '@/shared/ui/spinner'
 
 export const LoginForm = ({
 	className,
@@ -113,7 +114,8 @@ export const LoginForm = ({
 							)}
 							<Field>
 								<Button type='submit' disabled={isSubmitting}>
-									{isSubmitting ? 'Входим...' : 'Войти'}
+									Войти
+									{isSubmitting && <Spinner />}
 								</Button>
 								<Button
 									variant='outline'
@@ -126,6 +128,7 @@ export const LoginForm = ({
 								>
 									<GoogleIcon className='w-5! h-5!' />
 									Войти с помощью Google
+									{isGoogleLoading && <Spinner />}
 								</Button>
 								<FieldDescription className='text-center'>
 									Нет аккаунта?
