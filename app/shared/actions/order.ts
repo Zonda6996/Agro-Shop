@@ -29,32 +29,45 @@ export async function createOrderAction(
 		where: { id: { in: productIds } },
 	})
 
+	const outOfStock = items.find(item => {
+		const product = products.find(p => p.id === item.id)
+		return product && item.quantity > product.stock
+	})
+
+	if (outOfStock) {
+		return { error: `Товар "${outOfStock.name}" недоступен в таком количестве` }
+	}
+
 	const total = items.reduce((acc, item) => {
 		const product = products.find(p => p.id === item.id)
 		if (!product) return acc
 		return acc + Number(product.price) * item.quantity
 	}, 0)
 
-	const order = await prisma.order.create({
-		data: {
-			userId: Number(session.user.id),
-			total,
-			name: parsed.data.name,
-			phone: parsed.data.phone,
-			address: parsed.data.address,
-			paymentMethod: parsed.data.paymentMethod,
-			deliveryMethod: parsed.data.deliveryMethod,
-			items: {
-				create: items.map(item => {
-					const product = products.find(p => p.id === item.id)
-					return {
-						productId: item.id,
-						quantity: item.quantity,
-						price: Number(product!.price),
-					}
-				}),
+	const order = await prisma.$transaction(async tx => {
+		const newOrder = await tx.order.create({
+			data: {
+				userId: Number(session.user.id),
+				total,
+				name: parsed.data.name,
+				phone: parsed.data.phone,
+				address: parsed.data.address,
+				paymentMethod: parsed.data.paymentMethod,
+				deliveryMethod: parsed.data.deliveryMethod,
+				items: {
+					create: items.map(item => {
+						const product = products.find(p => p.id === item.id)
+						return {
+							productId: item.id,
+							quantity: item.quantity,
+							price: Number(product!.price),
+						}
+					}),
+				},
 			},
-		},
+		})
+
+		return newOrder
 	})
 
 	return { success: true, orderId: order.id }

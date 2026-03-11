@@ -9,7 +9,6 @@ import { CheckCircleIcon } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { Separator } from '@/shared/ui/separator'
 import Link from 'next/link'
-import NotFound from './not-found'
 
 type Params = {
 	params: Promise<{ id: string }>
@@ -20,9 +19,9 @@ const OrderPage = async ({ params }: Params) => {
 	const session = await auth()
 	const order = await getOrderById(Number(id))
 
-	if (!order) notFound()
+	if (!order) return notFound()
 
-	if (order.userId !== Number(session?.user?.id)) NotFound()
+	if (order.userId !== Number(session?.user?.id)) return notFound()
 
 	const paymentLabels: Record<string, string> = {
 		CASH: 'Наличными',
