@@ -2,17 +2,18 @@
 
 import { ROUTES } from '@/shared/lib/routes'
 import clsx from 'clsx'
-import { ClipboardListIcon, UserIcon } from 'lucide-react'
+import { ClipboardListIcon, HeartIcon, UserIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
+	{ href: ROUTES.ACCOUNT_PROFILE, label: 'Профиль', icon: UserIcon },
+	{ href: ROUTES.ACCOUNT_FAVORITES, label: 'Избранное', icon: HeartIcon },
 	{
 		href: ROUTES.ACCOUNT_ORDERS,
 		label: 'Мои заказы',
 		icon: ClipboardListIcon,
 	},
-	{ href: ROUTES.ACCOUNT_PROFILE, label: 'Профиль', icon: UserIcon },
 ]
 
 const AccountNav = () => {

@@ -19,7 +19,8 @@ const ProfilePage = async () => {
 	const isGoogleUser = !user?.password
 
 	return (
-		<div className='flex flex-col gap-6'>
+		<div className='flex flex-col gap-4'>
+			<h2 className='text-lg font-semibold heading'>Профиль</h2>
 			<Card>
 				<CardHeader>
 					<CardTitle>Личные данные</CardTitle>
