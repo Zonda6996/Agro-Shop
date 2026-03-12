@@ -24,12 +24,14 @@ export const Category = () => {
 					name='Семена'
 					description='Высококачественные семена для стабильного урожая'
 					icon={<SeedIcon className='text-primary' size={48} />}
+					slug='seeds'
 				/>
 
 				<CategoryCard
 					name='Оборудование'
 					description='Надёжная техника для эффективной работы в хозяйстве'
 					icon={<EquipmentIcon className='text-primary' size={48} />}
+					slug='equipment'
 				/>
 				<CategoryCard
 					name='Удобрения'
@@ -41,6 +43,7 @@ export const Category = () => {
 							size={48}
 						/>
 					}
+					slug='fertilizers'
 				/>
 				<CategoryCard
 					name='Защита растений'
@@ -52,6 +55,7 @@ export const Category = () => {
 							size={48}
 						/>
 					}
+					slug='plant-protection'
 				/>
 				<CategoryCard
 					name='Полив и орошение'
@@ -64,6 +68,7 @@ export const Category = () => {
 							size={48}
 						/>
 					}
+					slug='irrigation'
 				/>
 				<CategoryCard
 					name='Садовые инструменты'
@@ -76,6 +81,7 @@ export const Category = () => {
 							size={48}
 						/>
 					}
+					slug='garden-tools'
 				/>
 				<CategoryCard
 					name='Теплицы и укрывные материалы'
@@ -87,11 +93,13 @@ export const Category = () => {
 							size={48}
 						/>
 					}
+					slug='greenhouse-materials'
 				/>
 				<CategoryCard
 					name='Товары для животноводства'
 					description='Всё необходимое для содержания и ухода за животными'
 					icon={<FarmIcon className='text-primary' size={48} />}
+					slug='animal-products'
 				/>
 			</div>
 		</div>

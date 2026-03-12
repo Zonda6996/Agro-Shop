@@ -15,8 +15,8 @@ interface NavlinkProps {
 export const Navlink = ({
 	children,
 	href,
-	activeClassName = 'bg-primary text-primary-foreground shadow hover:bg-primary-hover',
-	className = 'text-primary hover:bg-green-200/50',
+	activeClassName = 'text-primary font-bold! relative after:absolute after:bottom-[-5px] after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:rounded-full',
+	className = 'text-gray-500 hover:text-gray-900',
 }: NavlinkProps) => {
 	const currentPath = usePathname()
 	const isActive = currentPath === href
@@ -26,9 +26,8 @@ export const Navlink = ({
 			<Link
 				href={href}
 				className={clsx(
-					'block rounded-full px-3 py-2 font-bold transition',
-					className,
-					{ [activeClassName]: isActive },
+					'relative font-medium transition-colors',
+					isActive ? activeClassName : className,
 				)}
 			>
 				{children}

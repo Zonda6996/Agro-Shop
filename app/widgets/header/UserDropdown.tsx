@@ -11,7 +11,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu'
-import { LogOutIcon, ShoppingBagIcon, UserIcon } from 'lucide-react'
+import { HeartIcon, LogOutIcon, ShoppingBagIcon, UserIcon } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 
@@ -37,20 +37,29 @@ const UserDropdown = ({ name, email }: UserDropdownProps) => {
 					</DropdownMenuLabel>
 					<DropdownMenuItem asChild className='cursor-pointer'>
 						<Link
-							href={ROUTES.ACCOUNT_ORDERS}
-							className='flex items-center gap-2'
-						>
-							<ShoppingBagIcon className='w-4 h-4' />
-							Мои заказы
-						</Link>
-					</DropdownMenuItem>
-					<DropdownMenuItem asChild className='cursor-pointer'>
-						<Link
 							href={ROUTES.ACCOUNT_PROFILE}
 							className='flex items-center gap-2'
 						>
 							<UserIcon className='w-4 h-4' />
 							Профиль
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild className='cursor-pointer'>
+						<Link
+							href={ROUTES.ACCOUNT_FAVORITES}
+							className='flex items-center gap-2'
+						>
+							<HeartIcon className='w-4 h-4' />
+							Избранное
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild className='cursor-pointer'>
+						<Link
+							href={ROUTES.ACCOUNT_ORDERS}
+							className='flex items-center gap-2'
+						>
+							<ShoppingBagIcon className='w-4 h-4' />
+							Мои заказы
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />

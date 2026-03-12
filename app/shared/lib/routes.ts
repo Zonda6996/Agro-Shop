@@ -10,4 +10,5 @@ export const ROUTES = {
 	ORDER: (id: number) => `/orders/${id}`,
 	ACCOUNT_ORDERS: '/account/orders',
 	ACCOUNT_PROFILE: '/account/profile',
+	ACCOUNT_FAVORITES: '/account/favorites'
 }
