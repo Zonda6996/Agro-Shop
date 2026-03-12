@@ -161,7 +161,7 @@ export const RegisterForm = ({
 									{isGoogleLoading && <Spinner />}
 								</Button>
 								<FieldDescription className='px-6 text-center'>
-									Уже есть аккаунт?
+									Уже есть аккаунт?{' '}
 									<Link href={ROUTES.LOGIN} className='text-foreground'>
 										Войти
 									</Link>

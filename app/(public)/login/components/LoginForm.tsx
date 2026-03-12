@@ -131,7 +131,7 @@ export const LoginForm = ({
 									{isGoogleLoading && <Spinner />}
 								</Button>
 								<FieldDescription className='text-center'>
-									Нет аккаунта?
+									Нет аккаунта?{' '}
 									<Link href={ROUTES.REGISTER} className='text-foreground'>
 										Зарегистрироваться
 									</Link>
