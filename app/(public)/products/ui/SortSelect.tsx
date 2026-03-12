@@ -1,6 +1,6 @@
 'use client'
 
-import { SortOption } from '@/api/products/types'
+import { SortOption } from '@/shared/types' 
 import {
 	Select,
 	SelectContent,

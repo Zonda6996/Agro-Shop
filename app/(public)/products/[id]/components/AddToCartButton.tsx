@@ -1,10 +1,12 @@
 'use client'
 
+import { selectAddItem, selectDeleteItem } from '@/shared/store/cartSelectors'
 import { useCartStore } from '@/shared/store/cartStore'
 import { Button } from '@/shared/ui/button'
+import { QuantityStepper } from '@/shared/ui/quantityStepper'
 import { ShoppingCartIcon } from 'lucide-react'
 
-interface AddtoCartButtonProps {
+interface AddToCartButtonProps {
 	id: number
 	name: string
 	price: number
@@ -16,8 +18,25 @@ export const AddToCartButton = ({
 	name,
 	price,
 	image,
-}: AddtoCartButtonProps) => {
-	const addItem = useCartStore(state => state.addItem)
+}: AddToCartButtonProps) => {
+	const addItem = useCartStore(selectAddItem)
+	const deleteItem = useCartStore(selectDeleteItem)
+	const cartItem = useCartStore(state =>
+		state.items.find(item => item.id === id),
+	)
+
+	if (cartItem) {
+		return (
+			<div className='flex-1'>
+				<QuantityStepper
+					quantity={cartItem.quantity}
+					onIncrease={() => addItem(cartItem)}
+					onDecrease={() => deleteItem(cartItem.id)}
+					size='lg'
+				/>
+			</div>
+		)
+	}
 
 	return (
 		<Button
@@ -26,7 +45,7 @@ export const AddToCartButton = ({
 			onClick={() => addItem({ id, name, price, image })}
 		>
 			В корзину
-			<ShoppingCartIcon className='mr-2 h-5 w-5' />
+			<ShoppingCartIcon className='h-5 w-5' />
 		</Button>
 	)
 }

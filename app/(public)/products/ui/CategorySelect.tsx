@@ -12,7 +12,11 @@ import {
 import { ChartBarDecreasingIcon } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export const CategorySelect = () => {
+interface CategorySelectProps {
+	categories: { id: number; name: string; slug: string }[]
+}
+
+export const CategorySelect = ({ categories }: CategorySelectProps) => {
 	const router = useRouter()
 	const searchParams = useSearchParams()
 
@@ -20,7 +24,7 @@ export const CategorySelect = () => {
 
 	const onChange = (value: string) => {
 		const params = new URLSearchParams(searchParams.toString())
-		
+
 		if (value === 'all') params.delete('category')
 		else params.set('category', value)
 
@@ -37,18 +41,11 @@ export const CategorySelect = () => {
 				<SelectGroup>
 					<SelectLabel>Категория</SelectLabel>
 					<SelectItem value='all'>Все</SelectItem>
-					<SelectItem value='seeds'>Семена</SelectItem>
-					<SelectItem value='equipment'>Оборудование</SelectItem>
-					<SelectItem value='fertilizers'>Удобрения</SelectItem>
-					<SelectItem value='plant-protection'>Защита растений</SelectItem>
-					<SelectItem value='irrigation'>Полив и орошение</SelectItem>
-					<SelectItem value='garden-tools'>Садовые инструменты</SelectItem>
-					<SelectItem value='greenhouse-materials'>
-						Теплицы и укрвные материалы
-					</SelectItem>
-					<SelectItem value='animal-products'>
-						Товары для животноводства
-					</SelectItem>
+					{categories.map(cat => (
+						<SelectItem key={cat.id} value={cat.slug}>
+							{cat.name}
+						</SelectItem>
+					))}
 				</SelectGroup>
 			</SelectContent>
 		</Select>

@@ -6,6 +6,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { AddToCartButton } from './components/AddToCartButton'
 import { getProductById } from '@/shared/lib/api/products'
+import { auth } from '@/shared/lib/auth'
+import { getFavoriteIds } from '@/shared/lib/api/favorites'
+import { FavoriteButton } from '@/shared/ui/favoriteButton'
+import { formatPrice } from '@/shared/lib/utils'
 
 interface ProductPageProps {
 	params: Promise<{ id: string }>
@@ -13,13 +17,21 @@ interface ProductPageProps {
 
 const ProductPage = async ({ params }: ProductPageProps) => {
 	const { id } = await params
+	const [product, session] = await Promise.all([
+		getProductById(Number(id)),
+		auth(),
+	])
 
-	const product = await getProductById(Number(id))
+	if (!product) return notFound()
 
-	if (!product) notFound()
+	const favoriteIds = session?.user?.id
+		? await getFavoriteIds(Number(session.user.id))
+		: []
+
+	const isFavorite = favoriteIds.includes(product.id)
 
 	const finalPrice = product.isFeatured
-		? Number(product.price) * 0.25
+		? Number(product.price) * 0.75
 		: Number(product.price)
 
 	return (
@@ -38,46 +50,73 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 				</div>
 
 				<div className='flex flex-col gap-6 self-start'>
-					<div>
-						<span className='text-xs text-gray-500 uppercase tracking-wider'>
-							{product.category.name}
-						</span>
-						<h1 className='text-3xl font-bold mt-2'>{product.name}</h1>
+					{/* Категория и название */}
+					<div className='flex items-start justify-between gap-3'>
+						<div>
+							<span className='text-xs text-gray-500 uppercase tracking-wider'>
+								{product.category.name}
+							</span>
+							<h1 className='text-3xl font-bold mt-2'>{product.name}</h1>
+						</div>
+						<FavoriteButton productId={product.id} isFavorite={isFavorite} />
 					</div>
 
+					{/* Цена */}
 					<div className='flex items-center gap-3'>
 						<span className='text-4xl font-bold text-gray-900'>
-							{finalPrice.toFixed(0)} ₸
+							{formatPrice(finalPrice)} ₸
 						</span>
 						{product.isFeatured && (
 							<>
 								<Badge className='bg-blue-200 text-blue-700'>Скидка 25%</Badge>
 								<span className='text-lg text-gray-400 line-through'>
-									{product.price.toString()} ₸
+									{formatPrice(Number(product.price))} ₸
 								</span>
 							</>
 						)}
 					</div>
 
+					{/* Наличие */}
 					{product.stock < 5 ? (
 						<Badge variant='destructive' className='w-fit'>
-							Осталось мало ({product.stock} шт.)
+							Осталось мало — {product.stock} шт.
 						</Badge>
 					) : (
 						<Badge variant='default' className='w-fit'>
-							В наличии ({product.stock} шт.)
+							В наличии — {product.stock} шт.
 						</Badge>
 					)}
 
+					{/* Описание */}
 					{product.description && (
-						<div>
-							<h2 className='font-semibold text-lg mb-2'>Описание</h2>
-							<p className='text-gray-600 leading-relaxed'>
+						<div className='bg-gray-50 rounded-2xl p-4'>
+							<h2 className='font-semibold mb-2'>Описание</h2>
+							<p className='text-gray-600 leading-relaxed text-sm'>
 								{product.description}
 							</p>
 						</div>
 					)}
 
+					{/* Характеристики */}
+					<div className='bg-gray-50 rounded-2xl p-4 flex flex-col gap-3'>
+						<h2 className='font-semibold'>Характеристики</h2>
+						<div className='flex justify-between text-sm'>
+							<span className='text-gray-500'>Категория</span>
+							<span className='font-medium'>{product.category.name}</span>
+						</div>
+						<div className='flex justify-between text-sm'>
+							<span className='text-gray-500'>Наличие</span>
+							<span className='font-medium'>{product.stock} шт.</span>
+						</div>
+						<div className='flex justify-between text-sm'>
+							<span className='text-gray-500'>Артикул</span>
+							<span className='font-medium'>
+								AGR-{product.id.toString().padStart(4, '0')}
+							</span>
+						</div>
+					</div>
+
+					{/* Кнопки */}
 					<div className='flex gap-3'>
 						<AddToCartButton
 							id={product.id}

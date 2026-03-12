@@ -9,6 +9,7 @@ import { useCartStore } from '@/shared/store/cartStore'
 import { SerializedProduct } from '@/shared/types'
 import { formatPrice } from '@/shared/lib/utils'
 import { QuantityStepper } from '@/shared/ui/quantityStepper'
+import { FavoriteButton } from '@/shared/ui/favoriteButton'
 
 export const ProductCard = ({
 	id,
@@ -18,7 +19,8 @@ export const ProductCard = ({
 	image,
 	category,
 	isFeatured,
-}: SerializedProduct) => {
+	isFavorite = false,
+}: SerializedProduct & { isFavorite?: boolean }) => {
 	const finalPrice = isFeatured ? Number(price) * 0.75 : Number(price)
 	const addItem = useCartStore(state => state.addItem)
 	const deleteItem = useCartStore(state => state.deleteItem)
@@ -28,6 +30,10 @@ export const ProductCard = ({
 
 	return (
 		<div className='grid group relative rounded-3xl p-4 bg-linear-to-b from-white via-white to-gray-50 shadow-md transition-all hover:shadow-2xl hover:-translate-y-1 hover:scale-101 duration-300'>
+			<div className='absolute top-3 right-3 z-10'>
+				<FavoriteButton productId={id} isFavorite={isFavorite} />
+			</div>
+
 			<Link href={ROUTES.PRODUCT(id)}>
 				<div className='aspect-square bg-gray-100 rounded-2xl mb-5 flex items-center justify-center text-gray-400 font-semibold text-sm uppercase tracking-wide'>
 					Фото скоро
