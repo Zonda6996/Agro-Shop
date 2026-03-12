@@ -1,3 +1,4 @@
+import { Footer } from '@/widgets/footer/footer'
 import { Header } from '@/widgets/header/header'
 
 export default function AppLayout({
@@ -7,6 +8,7 @@ export default function AppLayout({
 			<div className='min-h-screen flex flex-col bg-background'>
 				<Header />
 				<main className='flex-1 mt-5 flex flex-col'>{children}</main>
+				<Footer/>
 			</div>
 	)
 }

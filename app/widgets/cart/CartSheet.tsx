@@ -30,12 +30,13 @@ import {
 	selectTotalItems,
 	selectTotalPrice,
 } from '@/shared/store/cartSelectors'
+import { useStore } from 'zustand'
 
 export const CartSheet = () => {
 	const items = useCartStore(selectItems)
 	const clearCart = useCartStore(selectClearCart)
-	const totalItems = useCartStore(selectTotalItems)
-	const total = useCartStore(selectTotalPrice)
+	const totalItems = useStore(useCartStore, selectTotalItems) ?? 0
+	const total = useStore(useCartStore, selectTotalPrice) ?? 0
 
 	return (
 		<Sheet>
