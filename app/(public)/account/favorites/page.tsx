@@ -35,7 +35,7 @@ const FavoritesPage = async () => {
 			<div className='grid grid-cols-1 gap-4'>
 				{favorites.map(({ product }) => (
 					<Card key={product.id}>
-						<CardContent className='flex items-center justify-between'>
+						<CardContent className='flex items-center justify-between gap-2'>
 							<div className='flex flex-col gap-1'>
 								<Link
 									href={ROUTES.PRODUCT(product.id)}

@@ -78,7 +78,11 @@ const ChangePasswordForm = () => {
 				)}
 			</div>
 
-			<Button type='submit' className='max-w-1/5' disabled={isSubmitting}>
+			<Button
+				type='submit'
+				className='w-full sm:w-auto'
+				disabled={isSubmitting}
+			>
 				{isSubmitting && <Spinner />}
 				Изменить пароль
 			</Button>

@@ -32,7 +32,7 @@ const ProfilePage = async () => {
 			</Card>
 
 			{!isGoogleUser && (
-				<Card>
+				<Card >
 					<CardHeader>
 						<CardTitle>Смена пароля</CardTitle>
 						<CardDescription>Придумайте новый надёжный пароль.</CardDescription>

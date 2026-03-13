@@ -9,9 +9,9 @@ const AccountLayout = async ({ children }: { children: React.ReactNode }) => {
 	return (
 		<Container>
 			<div className='py-8 flex flex-col gap-6'>
-				<div className='flex gap-8 items-start'>
+				<div className='flex flex-col lg:flex-row gap-8 items-start'>
 					{/* Sidebar */}
-					<aside className='w-64 shrink-0'>
+					<aside className='lg:w-64 w-full shrink-0'>
 						<div className='bg-white rounded-2xl shadow-sm border p-4 flex flex-col gap-4'>
 							{/* Аватар и данные */}
 							<div className='flex flex-col items-center gap-2 py-4 border-b'>
@@ -30,7 +30,7 @@ const AccountLayout = async ({ children }: { children: React.ReactNode }) => {
 					</aside>
 
 					{/* Контент */}
-					<main className='flex-1 min-w-0'>{children}</main>
+					<main className='flex-1 min-w-0 w-full'>{children}</main>
 				</div>
 			</div>
 		</Container>

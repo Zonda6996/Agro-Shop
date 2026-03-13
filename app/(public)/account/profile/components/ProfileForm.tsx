@@ -71,7 +71,7 @@ const ProfileForm = ({ email, name }: ProfileFormProps) => {
 				{success && <p className='text-green-600'>Профиль успешно обновлён!</p>}
 			</div>
 
-			<Button className='max-w-1/5' type='submit' disabled={isSubmitting}>
+			<Button className='w-full sm:w-auto' type='submit' disabled={isSubmitting}>
 				{isSubmitting && <Spinner />}
 				Сохранить
 			</Button>

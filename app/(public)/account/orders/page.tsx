@@ -53,22 +53,22 @@ const OrdersPage = async () => {
 				<Card key={order.id}>
 					<CardContent className='flex flex-col gap-4'>
 						{/* Шапка заказа */}
-						<div className='flex items-center justify-between'>
-							<div className='flex items-center gap-3'>
+						<div className='flex flex-col gap-2'>
+							<div className='flex items-center justify-between'>
 								<p className='font-semibold'>Заказ №{order.id}</p>
-								<span
-									className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[order.status]}`}
-								>
-									{statusLabels[order.status]}
-								</span>
+								<p className='text-sm text-gray-500'>
+									{new Date(order.createdAt).toLocaleDateString('ru-RU', {
+										day: 'numeric',
+										month: 'long',
+										year: 'numeric',
+									})}
+								</p>
 							</div>
-							<p className='text-sm text-gray-500'>
-								{new Date(order.createdAt).toLocaleDateString('ru-RU', {
-									day: 'numeric',
-									month: 'long',
-									year: 'numeric',
-								})}
-							</p>
+							<span
+								className={`text-xs px-2 py-1 rounded-full font-medium w-fit ${statusColors[order.status]}`}
+							>
+								{statusLabels[order.status]}
+							</span>
 						</div>
 
 						{/* Товары */}
