@@ -4,13 +4,15 @@ import Link from 'next/link'
 import Logo from '../../../public/logo/logo.svg'
 import { Navlink } from '@/shared/ui/navlink'
 import { CartSheet } from '../cart/cartSheet'
-import UserButton from './UserButton'
+import UserButton from './components/UserButton'
+import { navLinks } from '@/shared/lib/navigation'
+import MobileMenu from './components/MobileMenu'
 
 export const Header = () => {
 	return (
-		<header className='w-full bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50'>
-			<div className='container mx-auto px-6 py-4 flex justify-between items-center gap-8'>
-				<Link href={ROUTES.HOME}>
+		<header className='w-full bg-white/80 backdrop-blur-md shadow-sm lg:sticky static top-0 z-50'>
+			<div className='relative w-full px-4 py-2 lg:py-4 flex justify-between items-center gap-4'>
+				<Link href={ROUTES.HOME} className='flex-1 lg:flex-none'>
 					<Image
 						src={Logo}
 						alt='Logo'
@@ -19,18 +21,26 @@ export const Header = () => {
 						loading='eager'
 					/>
 				</Link>
+
 				<nav>
-					<ul className='flex items-center gap-8 border border-gray-200 rounded-full px-4 py-2'>
-						<Navlink href={ROUTES.HOME}>Главная</Navlink>
-						<Navlink href={ROUTES.PRODUCTS}>Ассортимент</Navlink>
-						<Navlink href={ROUTES.CART}>Корзина</Navlink>
-						<Navlink href='/#partners'>Партнёры</Navlink>
-						<Navlink href='/#about'>О нас</Navlink>
+					<ul className='lg:flex items-center gap-8 border border-gray-200 rounded-full px-4 py-2 hidden'>
+						{navLinks.map(link => (
+							<Navlink key={link.href} href={link.href}>
+								{link.label}
+							</Navlink>
+						))}
 					</ul>
 				</nav>
-				<div className='flex gap-2 items-center font-medium rounded-full '>
+
+				<div className='hidden lg:flex gap-2 items-center font-medium'>
 					<CartSheet />
 					<UserButton />
+				</div>
+
+				<div className='flex lg:hidden gap-2 items-center'>
+					<UserButton />
+					<CartSheet />
+					<MobileMenu />
 				</div>
 			</div>
 		</header>
