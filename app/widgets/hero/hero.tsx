@@ -1,63 +1,95 @@
 import { Button } from '@/shared/ui/button'
 import Image from 'next/image'
-import combineImg from '../../../public/images/combine.webp'
 import twoTractorsImg from '../../../public/images/two-tractors.webp'
-import tractorOnFieldImg from '../../../public/images/tractor-on-field.webp'
-import { Container } from '../container/container'
 import Link from 'next/link'
+import { ROUTES } from '@/shared/lib/routes'
+import { SparklesIcon, TagIcon, TrendingUpIcon } from 'lucide-react'
+
+const banners = [
+	{
+		icon: SparklesIcon,
+		label: 'Новинки',
+		description: 'Свежие поступления',
+		href: ROUTES.PRODUCTS,
+		className: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+		iconClass: 'text-emerald-500',
+	},
+	{
+		icon: TagIcon,
+		label: 'Скидки',
+		description: 'До 25% на товары',
+		href: ROUTES.PRODUCTS,
+		className: 'bg-orange-50 border-orange-200 text-orange-700',
+		iconClass: 'text-orange-500',
+	},
+	{
+		icon: TrendingUpIcon,
+		label: 'Популярное',
+		description: 'Лидеры продаж',
+		href: ROUTES.PRODUCTS,
+		className: 'bg-blue-50 border-blue-200 text-blue-700',
+		iconClass: 'text-blue-500',
+	},
+]
 
 export const Hero = () => {
 	return (
-		<section className='flex flex-col gap-4 '>
-			{/* <div className='flex justify-between'>
-				<div className='max-w-1/2 flex flex-col gap-2 p-6 border border-primary rounded-2xl'>
-					<h1 className='font-semibold text-black/70 text-2xl tracking-tighter uppercase font-[montserrat]'>
-						<span className='text-primary'>Надёжные</span> решения для сельского
-						хозяйства
-					</h1>
-					<h2 className='text-gray-500/65 tracking-tighter font-[montserrat]'>
-						Качественные продукты и технологии для вашего бизнеса
-					</h2>
-				</div>
-				<Button className='self-end w-40 h-10 font-[montserrat]'>
-					Каталог
-				</Button>
-			</div> */}
-			{/* Image section */}
-			<div className='relative h-125 w-full rounded-2xl overflow-hidden'>
+		<section className='flex flex-col gap-4'>
+			{/* Картинка */}
+			<div className='relative h-100 lg:h-140 w-full rounded-2xl overflow-hidden'>
 				<Image
-					className='rounded-2xl object-cover '
+					className='rounded-2xl object-cover'
 					src={twoTractorsImg}
 					alt='Combine'
 					priority
 					fill
 				/>
+				<div className='absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-transparent rounded-2xl' />
 
-				{/* Overlay */}
-				<div className='absolute inset-0 bg-linear-to-r from-black/40 via-black/20 to-transparent rounded-2xl' />
-
-				{/* Content */}
-				<div className='absolute inset-0 flex items-end p-12'>
-					<div className='w-full max-5xl bottom-12 left-12 p-6 rounded-2xl text-primary-foreground outline backdrop-blur-xs shadow-lg'>
-						<div className='flex items-center justify-between'>
-							<div className='text-background'>
-								<p className='font-semibold text-2xl '>
-									Надёжные решения для агробизнеса
-								</p>
-								<p className='font-light'>
-									Товары для посева, ухода и роста
-								</p>
-							</div>
-							<Button
-								size={'lg'}
-								className='border-background hover:border-primary'
-								variant={'outline'}
-							>
-								Каталог
-							</Button>
-						</div>
-					</div>
+				<div className='absolute inset-0 flex flex-col items-start justify-center px-16 gap-4'>
+					<p className='text-white font-bold sm:text-4xl text-3xl drop-shadow-lg'>
+						Надёжные решения для агробизнеса
+					</p>
+					<p className='text-white/80 sm:text-lg text-md font-light drop-shadow'>
+						Всё для посева, ухода и роста вашего хозяйства
+					</p>
+					<Link href={ROUTES.PRODUCTS}>
+						<Button size='lg' className='mt-2'>
+							Перейти в каталог
+						</Button>
+					</Link>
 				</div>
+
+				{/* Баннеры внутри — только десктоп */}
+				<div className='absolute bottom-0 left-0 right-0 hidden lg:grid grid-cols-3 gap-3 p-4'>
+					{banners.map(({ icon: Icon, label, description, href }) => (
+						<Link key={label} href={href}>
+							<div className='flex items-center gap-3 px-3 py-6 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all cursor-pointer'>
+								<div className='w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0'>
+									<Icon className='w-4 h-4 text-white' />
+								</div>
+								<div>
+									<p className='font-semibold text-sm text-white'>{label}</p>
+									<p className='text-xs text-white/70'>{description}</p>
+								</div>
+							</div>
+						</Link>
+					))}
+				</div>
+			</div>
+
+			{/* Баннеры под картинкой — только мобильный */}
+			<div className='grid grid-cols-3 gap-3 lg:hidden'>
+				{banners.map(({ icon: Icon, label, href, className, iconClass }) => (
+					<Link key={label} href={href}>
+						<div
+							className={`flex flex-col items-center gap-2 p-3 rounded-2xl border text-center cursor-pointer hover:shadow-md transition-all ${className}`}
+						>
+							<Icon className={`w-5 h-5 ${iconClass}`} />
+							<p className='font-semibold text-xs'>{label}</p>
+						</div>
+					</Link>
+				))}
 			</div>
 		</section>
 	)

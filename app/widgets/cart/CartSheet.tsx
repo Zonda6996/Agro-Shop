@@ -50,7 +50,7 @@ export const CartSheet = () => {
 					)}
 				</Button>
 			</SheetTrigger>
-			<SheetContent>
+			<SheetContent className='w-full sm:max-w-md'>
 				<SheetHeader>
 					<SheetTitle>
 						Корзина <span>{totalItems > 0 ? `(${totalItems})` : ''}</span>

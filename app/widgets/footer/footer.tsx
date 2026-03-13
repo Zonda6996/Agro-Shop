@@ -7,7 +7,7 @@ export const Footer = () => {
 	return (
 		<footer className='bg-gray-950 text-gray-400 mt-20'>
 			<div className='container mx-auto px-6 py-8'>
-				<div className='grid grid-cols-4 gap-8'>
+				<div className='grid lg:grid-cols-4 grid-cols-2 gap-8'>
 					{/* Лого и описание */}
 					<div className='flex flex-col gap-4'>
 						<Image
@@ -78,7 +78,7 @@ export const Footer = () => {
 					</div>
 				</div>
 
-				<div className='border-t border-gray-800 mt-10 pt-6 flex justify-between items-center text-sm'>
+				<div className='border-t border-gray-800 mt-10 pt-6 flex justify-between gap-3 items-center text-sm'>
 					<p>© 2025 Agrivia. Все права защищены.</p>
 					<p>Сделано с ❤️ для агробизнеса</p>
 				</div>

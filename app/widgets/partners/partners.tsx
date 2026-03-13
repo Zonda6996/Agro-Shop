@@ -37,7 +37,7 @@ export const Partners = () => {
 				</p>
 			</div>
 
-			<div className='grid grid-cols-3 gap-6'>
+			<div className='grid sm:grid-cols-3 grid-cols-1 sm:gap-6 gap-3'>
 				{partners.map(partner => (
 					<div
 						key={partner.name}

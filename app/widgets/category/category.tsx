@@ -19,7 +19,7 @@ export const Category = () => {
 					Подберите нужные решения для вашего хозяйства
 				</h5>
 			</div>
-			<div className='grid grid-cols-4 mt-8 gap-6'>
+			<div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-8 gap-6'>
 				<CategoryCard
 					name='Семена'
 					description='Высококачественные семена для стабильного урожая'
