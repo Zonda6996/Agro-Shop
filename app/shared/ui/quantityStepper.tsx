@@ -27,7 +27,7 @@ export const QuantityStepper = ({
 				−
 			</Button>
 			<span
-				className={`flex-1bg-gray-200/70 rounded-md text-center min-w-8 ${isLarge ? 'py-2 px-4 text-base' : 'py-1 px-3 text-sm'}`}
+				className={`bg-gray-200/70 rounded-md text-center min-w-8 ${isLarge ? 'py-2 px-4 text-base' : 'py-1 px-3 text-sm'}`}
 			>
 				{quantity}
 			</span>

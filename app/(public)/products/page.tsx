@@ -21,7 +21,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 	return (
 		<div>
 			<Container>
-				<div className='grid md:grid-cols-3 grid-cols-1 gap-4 items-center'>
+				<div className='grid md:grid-cols-3 grid-cols-1 gap-8 items-center'>
 					<Filters />
 					<Search />
 				</div>

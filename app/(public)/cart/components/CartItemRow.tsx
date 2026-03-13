@@ -22,52 +22,56 @@ export const CartItemRow = ({ item }: CartItemRowProps) => {
 	const deleteItem = useCartStore(selectDeleteItem)
 	const removeItem = useCartStore(selectRemoveItem)
 
-	return (
-		<div className='flex flex-col gap-3'>
-			<div className='grid grid-cols-6 gap-4'>
-				{/* Фото */}
-				<Link href={ROUTES.PRODUCT(item.id)} className='col-span-1'>
-					<div className='aspect-square border bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-xs uppercase tracking-wide'>
-						Фото
-					</div>
-				</Link>
+return (
+	<div className='flex flex-col gap-3'>
+		<div className='flex gap-4 items-center'>
+			{/* Фото */}
+			<Link href={ROUTES.PRODUCT(item.id)} className='shrink-0'>
+				<div className='w-20 h-20 border bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-xs uppercase tracking-wide'>
+					Фото
+				</div>
+			</Link>
 
-				{/* Название и удаление */}
-				<div className='col-span-2 flex flex-col h-full'>
-					<Link href={ROUTES.PRODUCT(item.id)} className='hover:underline'>
+			{/* Основной контент */}
+			<div className='flex flex-1 flex-col gap-2 min-w-0'>
+				{/* Название + цена */}
+				<div className='flex justify-between items-start gap-2'>
+					<Link
+						href={ROUTES.PRODUCT(item.id)}
+						className='hover:underline text-sm font-medium leading-tight'
+					>
 						{item.name}
 					</Link>
-					{item.quantity > 1 && (
-						<p className='text-xs text-gray-500 mt-1'>
-							{formatPrice(item.price)} ₸/шт
-						</p>
-					)}
+					<span className='font-semibold text-sm shrink-0'>
+						{formatPrice(item.price * item.quantity)} ₸
+					</span>
+				</div>
+
+				{/* Счётчик + удалить */}
+				<div className='flex items-center justify-between'>
+					<div className='flex items-center gap-2'>
+						<QuantityStepper
+							quantity={item.quantity}
+							onIncrease={() => addItem(item)}
+							onDecrease={() => deleteItem(item.id)}
+						/>
+						{item.quantity > 1 && (
+							<p className='text-xs text-gray-500'>
+								{formatPrice(item.price)} ₸/шт
+							</p>
+						)}
+					</div>
 					<Button
 						onClick={() => removeItem(item.id)}
 						variant='ghost'
 						size='icon'
-						className='mt-auto hover:bg-red-50'
+						className='hover:bg-red-50'
 					>
-						<Trash2Icon className='w-5! h-5! text-red-500' />
+						<Trash2Icon className='w-4 h-4 text-red-500' />
 					</Button>
-				</div>
-
-				{/* Счётчик */}
-				<div className='col-span-2 flex flex-col justify-between items-center h-full'>
-					<QuantityStepper
-						quantity={item.quantity}
-						onIncrease={() => addItem(item)}
-						onDecrease={() => deleteItem(item.id)}
-					/>
-				</div>
-
-				{/* Цена */}
-				<div className='col-span-1 flex flex-col items-end gap-1'>
-					<span className='font-semibold'>
-						{formatPrice(item.price * item.quantity)} ₸
-					</span>
 				</div>
 			</div>
 		</div>
-	)
+	</div>
+)
 }
