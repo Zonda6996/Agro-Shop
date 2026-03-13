@@ -62,7 +62,7 @@ export const LoginForm = ({
 	}
 
 	return (
-		<div className={cn('flex flex-col gap-6', className)} {...props}>
+		<div className={cn('flex flex-col gap-6 px-4', className)} {...props}>
 			<Card className='w-full max-w-md mx-auto border-0'>
 				<CardHeader>
 					<CardTitle>Войдите в свой аккаунт</CardTitle>

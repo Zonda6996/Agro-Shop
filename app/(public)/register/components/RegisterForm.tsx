@@ -63,114 +63,125 @@ export const RegisterForm = ({
 	}
 
 	return (
-		<Card className='w-full max-w-md mx-auto border-0 mb-5' {...props}>
-			<CardHeader>
-				<CardTitle>Создайте аккаунт</CardTitle>
-				<CardDescription>
-					Введите свои данные ниже, чтобы создать аккаунт
-				</CardDescription>
-			</CardHeader>
-			<CardContent>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<FieldGroup>
-						<Field>
-							<FieldLabel htmlFor='name'>Имя</FieldLabel>
-							<Input
-								{...register('name')}
-								id='name'
-								type='text'
-								placeholder='Иван'
-								required
-							/>
-						</Field>
-						{errors.name && (
-							<p className='text-red-500 text-sm'>{errors.name.message}</p>
-						)}
-						<Field>
-							<FieldLabel htmlFor='email'>Email</FieldLabel>
-							<Input
-								{...register('email')}
-								id='email'
-								type='email'
-								placeholder='m@example.com'
-								required
-							/>
-							<FieldDescription>
-								Мы будем использовать это для связи с вами. Мы не будем делиться
-								вашим email ни с кем другим.
-							</FieldDescription>
-						</Field>
-						{errors.email && (
-							<p className='text-red-500 text-sm'>{errors.email.message}</p>
-						)}
-						<Field>
-							<FieldLabel htmlFor='password'>Пароль</FieldLabel>
-							<Input
-								{...register('password')}
-								id='password'
-								type='password'
-								required
-							/>
-							<FieldDescription>
-								Должен содержать как минимум 8 символов.
-							</FieldDescription>
-						</Field>
-						{errors.password && (
-							<p className='text-red-500 text-sm'>{errors.password.message}</p>
-						)}
-						<Field>
-							<FieldLabel htmlFor='confirm-password'>
-								Подтвердить пароль
-							</FieldLabel>
-							<Input
-								{...register('confirmPassword')}
-								id='confirm-password'
-								type='password'
-								required
-							/>
-							<FieldDescription>
-								Пожалуйста, подтвердите ваш пароль.
-							</FieldDescription>
-						</Field>
-						{errors.confirmPassword && (
-							<p className='text-red-500 text-sm'>
-								{errors.confirmPassword.message}
-							</p>
-						)}
-
-						{serverError && (
-							<p className='text-red-500 text-sm text-center'>{serverError}</p>
-						)}
+		<div className='px-4'>
+			<Card className='w-full max-w-md mx-auto border-0 mb-5' {...props}>
+				<CardHeader>
+					<CardTitle>Создайте аккаунт</CardTitle>
+					<CardDescription>
+						Введите свои данные ниже, чтобы создать аккаунт
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<form onSubmit={handleSubmit(onSubmit)}>
 						<FieldGroup>
 							<Field>
-								<Button type='submit' disabled={isSubmitting}>
-									{isSubmitting && <Spinner/>}
-									Создать аккаунт
-								</Button>
-								<Button
-									variant='outline'
-									type='button'
-									disabled={isGoogleLoading}
-									onClick={async () => {
-										setIsGoogleLoading(true)
-										await signIn('google', { callbackUrl: ROUTES.HOME })
-									}}
-								>
-									<GoogleIcon className='w-5! h-5!' />
-									Зарегистрироваться с помощью Google
-									{isGoogleLoading && <Spinner />}
-								</Button>
-								<FieldDescription className='px-6 text-center'>
-									Уже есть аккаунт?{' '}
-									<Link href={ROUTES.LOGIN} className='text-foreground'>
-										Войти
-									</Link>
+								<FieldLabel htmlFor='name'>Имя</FieldLabel>
+								<Input
+									{...register('name')}
+									id='name'
+									type='text'
+									placeholder='Иван'
+									required
+								/>
+							</Field>
+							{errors.name && (
+								<p className='text-red-500 text-sm'>{errors.name.message}</p>
+							)}
+							<Field>
+								<FieldLabel htmlFor='email'>Email</FieldLabel>
+								<Input
+									{...register('email')}
+									id='email'
+									type='email'
+									placeholder='m@example.com'
+									required
+								/>
+								<FieldDescription>
+									Мы будем использовать это для связи с вами. Мы не будем
+									делиться вашим email ни с кем другим.
 								</FieldDescription>
 							</Field>
+							{errors.email && (
+								<p className='text-red-500 text-sm'>{errors.email.message}</p>
+							)}
+							<Field>
+								<FieldLabel htmlFor='password'>Пароль</FieldLabel>
+								<Input
+									{...register('password')}
+									id='password'
+									type='password'
+									required
+								/>
+								<FieldDescription>
+									Должен содержать как минимум 8 символов.
+								</FieldDescription>
+							</Field>
+							{errors.password && (
+								<p className='text-red-500 text-sm'>
+									{errors.password.message}
+								</p>
+							)}
+							<Field>
+								<FieldLabel htmlFor='confirm-password'>
+									Подтвердить пароль
+								</FieldLabel>
+								<Input
+									{...register('confirmPassword')}
+									id='confirm-password'
+									type='password'
+									required
+								/>
+								<FieldDescription>
+									Пожалуйста, подтвердите ваш пароль.
+								</FieldDescription>
+							</Field>
+							{errors.confirmPassword && (
+								<p className='text-red-500 text-sm'>
+									{errors.confirmPassword.message}
+								</p>
+							)}
+							{serverError && (
+								<p className='text-red-500 text-sm text-center'>
+									{serverError}
+								</p>
+							)}
+							<FieldGroup>
+								<Field>
+									<Button type='submit' disabled={isSubmitting}>
+										{isSubmitting && <Spinner />}
+										Создать аккаунт
+									</Button>
+									<Button
+										variant='outline'
+										type='button'
+										disabled={isGoogleLoading}
+										onClick={async () => {
+											setIsGoogleLoading(true)
+											await signIn('google', { callbackUrl: ROUTES.HOME })
+										}}
+									>
+										<GoogleIcon className='w-5! h-5!' />
+										<span className='hidden sm:block'>
+											Зарегистрироваться с помощью Google
+										</span>
+										<span className='sm:hidden'>
+											Зарегистрироваться с Google
+										</span>
+										{isGoogleLoading && <Spinner />}
+										{isGoogleLoading && <Spinner />}
+									</Button>
+									<FieldDescription className='px-6 text-center'>
+										Уже есть аккаунт?{' '}
+										<Link href={ROUTES.LOGIN} className='text-foreground'>
+											Войти
+										</Link>
+									</FieldDescription>
+								</Field>
+							</FieldGroup>
 						</FieldGroup>
-					</FieldGroup>
-				</form>
-			</CardContent>
-		</Card>
+					</form>
+				</CardContent>
+			</Card>
+		</div>
 	)
 }
