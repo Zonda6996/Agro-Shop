@@ -168,7 +168,6 @@ export const RegisterForm = ({
 											Зарегистрироваться с Google
 										</span>
 										{isGoogleLoading && <Spinner />}
-										{isGoogleLoading && <Spinner />}
 									</Button>
 									<FieldDescription className='px-6 text-center'>
 										Уже есть аккаунт?{' '}
