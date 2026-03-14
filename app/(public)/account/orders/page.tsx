@@ -74,11 +74,11 @@ const OrdersPage = async () => {
 						{/* Товары */}
 						<div className='flex flex-col gap-2'>
 							{order.items.map(item => (
-								<div key={item.id} className='flex justify-between text-sm'>
+								<div key={item.id} className='flex justify-between gap-5 text-sm'>
 									<span className='text-gray-600'>
 										{item.product.name} × {item.quantity}
 									</span>
-									<span className='font-medium'>
+									<span className='font-medium shrink-0'>
 										{formatPrice(Number(item.price) * item.quantity)} ₸
 									</span>
 								</div>
@@ -87,8 +87,8 @@ const OrdersPage = async () => {
 						<Separator className='bg-gray-200' />
 
 						{/* Итого и кнопка */}
-						<div className='flex items-center justify-between'>
-							<p className='font-semibold'>
+						<div className='flex items-center gap-2 justify-between flex-wrap'>
+							<p className='font-semibold shrink-0'>
 								Итого: {formatPrice(Number(order.total))} ₸
 							</p>
 							<Link href={ROUTES.ORDER(order.id)}>
