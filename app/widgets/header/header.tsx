@@ -7,8 +7,12 @@ import { CartSheet } from '../cart/CartSheet'
 import UserButton from './components/UserButton'
 import { navLinks } from '@/shared/lib/navigation'
 import MobileMenu from './components/MobileMenu'
+import { auth } from '@/shared/lib/auth'
+import { Separator } from '@/shared/ui/separator'
 
-export const Header = () => {
+export const Header = async () => {
+	const session = await auth()
+
 	return (
 		<header className='w-full bg-white/80 backdrop-blur-md shadow-sm lg:sticky static top-0 z-50'>
 			<div className='relative w-full px-4 py-2 lg:py-4 flex justify-between items-center gap-4'>
@@ -34,13 +38,31 @@ export const Header = () => {
 
 				<div className='hidden lg:flex gap-2 items-center font-medium'>
 					<CartSheet />
-					<UserButton />
+					{session ? (
+						<UserButton />
+					) : (
+						<div className='flex gap-3 items-center'>
+							<Link
+								className='py-1.5 px-2 rounded-full hover:bg-gray-100 transition text-sm font-medium'
+								href={ROUTES.LOGIN}
+							>
+								Войти
+							</Link>
+							<Separator className='w-[0.8px]! h-4!' orientation='vertical' />
+							<Link
+								className='py-1.5 px-2 rounded-full hover:bg-gray-100 transition text-sm font-medium'
+								href={ROUTES.REGISTER}
+							>
+								Регистрация
+							</Link>
+						</div>
+					)}
 				</div>
 
 				<div className='flex lg:hidden gap-2 items-center'>
 					<UserButton />
 					<CartSheet />
-					<MobileMenu />
+					<MobileMenu isLoggedIn={!!session} />
 				</div>
 			</div>
 		</header>
