@@ -3,7 +3,7 @@ import './globals.css'
 import { inter, poppins } from './shared/ui/fonts/fonts'
 
 export const metadata: Metadata = {
-	title: 'Agro Shop',
+	title: 'Agrivia',
 	description: 'Agro shop built with Next.js and Tailwind CSS',
 	icons: {
 		icon: '/favicon.ico',
