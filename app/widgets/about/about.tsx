@@ -60,7 +60,7 @@ export const About = () => {
 				{/* Карточки со статистикой */}
 				<div className='grid grid-cols-2 gap-4'>
 					<div className='bg-primary rounded-2xl p-8 text-primary-foreground flex flex-col gap-2'>
-						<p className='text-5xl font-bold'>5+</p>
+						<p className='text-5xl font-bold'>5</p>
 						<p className='text-primary-foreground/80'>лет на рынке</p>
 					</div>
 					<div className='bg-gray-100 rounded-2xl p-8 flex flex-col gap-2'>
@@ -68,11 +68,11 @@ export const About = () => {
 						<p className='text-gray-500'>довольных клиентов</p>
 					</div>
 					<div className='bg-gray-100 rounded-2xl p-8 flex flex-col gap-2'>
-						<p className='text-5xl font-bold'>8+</p>
+						<p className='text-5xl font-bold'>20</p>
 						<p className='text-gray-500'>категорий товаров</p>
 					</div>
 					<div className='bg-gray-950 rounded-2xl p-8 text-white flex flex-col gap-2'>
-						<p className='text-5xl font-bold'>16+</p>
+						<p className='text-5xl font-bold'>350+</p>
 						<p className='text-gray-400'>товаров в каталоге</p>
 					</div>
 				</div>
