@@ -79,6 +79,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				if (dbUser) {
 					token.id = String(dbUser.id)
 					token.name = dbUser.name
+					token.role = dbUser.role
 				}
 			}
 
@@ -86,7 +87,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				const dbUser = await prisma.user.findUnique({
 					where: { id: Number(token.id) },
 				})
-				if (dbUser) token.name = dbUser.name
+				if (dbUser) {
+					token.name = dbUser.name
+					token.role = dbUser.role
+				}
 			}
 
 			return token
