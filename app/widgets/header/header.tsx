@@ -12,6 +12,7 @@ import { Separator } from '@/shared/ui/separator'
 
 export const Header = async () => {
 	const session = await auth()
+	console.log(session?.user?.role)
 
 	return (
 		<header className='w-full bg-white/80 backdrop-blur-md shadow-sm lg:sticky static top-0 z-50'>
