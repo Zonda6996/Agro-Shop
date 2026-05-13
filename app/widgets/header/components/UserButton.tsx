@@ -8,11 +8,13 @@ const UserButton = async () => {
 
 	if (session) {
 		return (
-			<UserDropdown name={session?.user?.name} email={session?.user?.email} />
+			<UserDropdown
+				name={session?.user?.name}
+				email={session?.user?.email}
+				role={session?.user.role}
+			/>
 		)
 	}
-
-
 }
 
 export default UserButton

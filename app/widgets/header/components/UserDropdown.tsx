@@ -11,16 +11,17 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu'
-import { HeartIcon, LogOutIcon, ShoppingBagIcon, UserIcon } from 'lucide-react'
+import { HeartIcon, LogOutIcon, SettingsIcon, ShoppingBagIcon, UserIcon } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 
 interface UserDropdownProps {
 	name?: string | null
 	email?: string | null
+	role?: string | null
 }
 
-const UserDropdown = ({ name, email }: UserDropdownProps) => {
+const UserDropdown = ({ name, email, role }: UserDropdownProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -35,6 +36,17 @@ const UserDropdown = ({ name, email }: UserDropdownProps) => {
 						<p className='font-medium'>{name}</p>
 						<p className='text-xs text-gray-500 font-normal'>{email}</p>
 					</DropdownMenuLabel>
+					{role === 'ADMIN' && (
+						<>
+							<DropdownMenuItem asChild className='cursor-pointer'>
+								<Link href='/admin' className='flex items-center gap-2'>
+									<SettingsIcon className='w-4 h-4' />
+									Админ-панель
+								</Link>
+							</DropdownMenuItem>
+							<DropdownMenuSeparator />
+						</>
+					)}
 					<DropdownMenuItem asChild className='cursor-pointer'>
 						<Link
 							href={ROUTES.ACCOUNT_PROFILE}
