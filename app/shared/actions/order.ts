@@ -67,6 +67,13 @@ export async function createOrderAction(
 			},
 		})
 
+		for (const item of items) {
+			await tx.product.update({
+				where: { id: item.id },
+				data: { stock: { decrement: item.quantity } },
+			})
+		}
+
 		return newOrder
 	})
 
