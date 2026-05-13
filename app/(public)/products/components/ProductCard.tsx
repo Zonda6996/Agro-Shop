@@ -66,10 +66,12 @@ export const ProductCard = ({
 					)}
 				</div>
 
-				{stock < 5 ? (
-					<Badge variant={'destructive'}>Осталось мало</Badge>
+				{stock === 0 ? (
+					<Badge variant='outline'>Нет в наличии</Badge>
+				) : stock < 5 ? (
+					<Badge variant='destructive'>Осталось мало</Badge>
 				) : (
-					<Badge variant={'default'}>В наличии</Badge>
+					<Badge variant='default'>В наличии</Badge>
 				)}
 			</div>
 

@@ -5,12 +5,14 @@ import { useCartStore } from '@/shared/store/cartStore'
 import { Button } from '@/shared/ui/button'
 import { QuantityStepper } from '@/shared/ui/quantityStepper'
 import { ShoppingCartIcon } from 'lucide-react'
+import { is } from 'zod/v4/locales'
 
 interface AddToCartButtonProps {
 	id: number
 	name: string
 	price: number
 	image?: string | null
+	stock: number
 }
 
 export const AddToCartButton = ({
@@ -18,12 +20,15 @@ export const AddToCartButton = ({
 	name,
 	price,
 	image,
+	stock,
 }: AddToCartButtonProps) => {
 	const addItem = useCartStore(selectAddItem)
 	const deleteItem = useCartStore(selectDeleteItem)
 	const cartItem = useCartStore(state =>
 		state.items.find(item => item.id === id),
 	)
+
+	const isOutOfStock = stock === 0
 
 	if (cartItem) {
 		return (
@@ -42,9 +47,10 @@ export const AddToCartButton = ({
 		<Button
 			size='lg'
 			className='flex-1'
+			disabled={isOutOfStock}
 			onClick={() => addItem({ id, name, price, image })}
 		>
-			В корзину
+			{isOutOfStock ? 'Нет в наличии' : 'В корзину'}
 			<ShoppingCartIcon className='h-5 w-5' />
 		</Button>
 	)

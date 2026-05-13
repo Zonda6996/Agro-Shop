@@ -77,7 +77,11 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 					</div>
 
 					{/* Наличие */}
-					{product.stock < 5 ? (
+					{product.stock === 0 ? (
+						<Badge variant='outline' className='w-fit'>
+							Нет в наличии
+						</Badge>
+					) : product.stock < 5 ? (
 						<Badge variant='destructive' className='w-fit'>
 							Осталось мало — {product.stock} шт.
 						</Badge>
@@ -123,6 +127,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 							name={product.name}
 							price={finalPrice}
 							image={product.image}
+							stock={product.stock}
 						/>
 					</div>
 				</div>
