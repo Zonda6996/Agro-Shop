@@ -1,16 +1,26 @@
-import { auth } from "@/shared/lib/auth";
-import { ROUTES } from "@/shared/lib/routes";
-import { LayoutDashboardIcon, PackageIcon, ShoppingCartIcon } from "lucide-react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { auth } from '@/shared/lib/auth'
+import { ROUTES } from '@/shared/lib/routes'
+import {
+	LayoutDashboardIcon,
+	PackageIcon,
+	ShoppingCartIcon,
+	UsersIcon,
+} from 'lucide-react'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 const navItems = [
-	{href: '/admin', label: 'Дашборд', icon: LayoutDashboardIcon},
-	    { href: '/admin/products', label: 'Товары', icon: PackageIcon },
-    { href: '/admin/orders', label: 'Заказы', icon: ShoppingCartIcon },
+	{ href: '/admin', label: 'Дашборд', icon: LayoutDashboardIcon },
+	{ href: '/admin/products', label: 'Товары', icon: PackageIcon },
+	{ href: '/admin/orders', label: 'Заказы', icon: ShoppingCartIcon },
+	{ href: '/admin/users', label: 'Пользователи', icon: UsersIcon },
 ]
 
-export default async function AdminLayout({children}: {children: React.ReactNode}) {
+export default async function AdminLayout({
+	children,
+}: {
+	children: React.ReactNode
+}) {
 	const session = await auth()
 
 	if (session?.user.role !== 'ADMIN') {
@@ -19,7 +29,6 @@ export default async function AdminLayout({children}: {children: React.ReactNode
 
 	return (
 		<div className='min-h-screen flex'>
-			{/* Sidebar */}
 			<aside className='w-64 bg-gray-950 text-white flex flex-col'>
 				<div className='p-6 border-b border-gray-800'>
 					<p className='font-bold text-lg'>Agrivia Admin</p>
@@ -39,9 +48,7 @@ export default async function AdminLayout({children}: {children: React.ReactNode
 				</nav>
 			</aside>
 
-			{/* Контент */}
 			<main className='flex-1 bg-gray-100 p-8'>{children}</main>
 		</div>
 	)
-
 }

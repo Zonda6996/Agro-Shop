@@ -4,7 +4,7 @@ import { auth } from '@/shared/lib/auth'
 import prisma from '@/shared/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { z } from 'zod'
+import { success, z } from 'zod'
 
 const productSchema = z.object({
 	name: z.string().min(2, 'Минимум 2 символа'),
@@ -18,15 +18,19 @@ const productSchema = z.object({
 async function checkAdmin() {
 	const session = await auth()
 	if (session?.user?.role !== 'ADMIN') {
-		throw new Error('Нет доступа')
+		return {error: 'Нет доступа'}
 	}
+	return {success: true}
 }
 
 export async function createProductAction(
 	prevState: unknown,
 	formData: FormData,
 ) {
-	await checkAdmin()
+	const adminCheck = await checkAdmin()
+	if (adminCheck.error) {
+		return { error: adminCheck.error }
+	}
 
 	const parsed = productSchema.safeParse({
 		name: formData.get('name'),
