@@ -1,6 +1,7 @@
 import { auth } from '@/shared/lib/auth'
 import { ROUTES } from '@/shared/lib/routes'
 import {
+	ArrowLeftIcon,
 	LayoutDashboardIcon,
 	PackageIcon,
 	ShoppingCartIcon,
@@ -30,7 +31,7 @@ export default async function AdminLayout({
 	return (
 		<div className='min-h-screen flex'>
 			<aside className='w-64 bg-gray-950 text-white flex flex-col'>
-				<div className='p-6 border-b border-gray-800'>
+				<div className=' p-6 border-b border-gray-800'>
 					<p className='font-bold text-lg'>Agrivia Admin</p>
 					<p className='text-gray-400 text-sm mt-1'>{session.user.email}</p>
 				</div>
@@ -48,7 +49,16 @@ export default async function AdminLayout({
 				</nav>
 			</aside>
 
-			<main className='flex-1 bg-gray-100 p-8'>{children}</main>
+			<main className='flex-1 bg-gray-100 p-8'>
+				<Link
+					href={ROUTES.HOME}
+					className='flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors w-fit mb-1'
+				>
+					<ArrowLeftIcon className='w-4 h-4' />
+					На главную Agrivia
+				</Link>
+				{children}
+			</main>
 		</div>
 	)
 }
