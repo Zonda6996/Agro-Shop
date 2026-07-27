@@ -28,6 +28,8 @@ export const ProductCard = ({
 		state.items.find(item => item.id === id),
 	)
 
+	const isOutOfStock = stock === 0
+
 	return (
 		<div className='grid group relative rounded-3xl p-4 bg-linear-to-b from-white via-white to-gray-50 shadow-md transition-all hover:shadow-2xl hover:-translate-y-1 hover:scale-101 duration-300'>
 			<div className='absolute top-3 right-3 z-10'>
@@ -96,9 +98,13 @@ export const ProductCard = ({
 					<Button
 						className='w-1/2'
 						size='sm'
+						disabled={isOutOfStock}
 						onClick={() => addItem({ id, name, price: finalPrice, image })}
 					>
-						В корзину <ShoppingCartIcon className='ml-2 h-4 w-4' />
+						{isOutOfStock ? 'Нет в наличии' : 'В корзину'}
+						{isOutOfStock ? null : (
+							<ShoppingCartIcon className='ml-2 h-4 w-4' />
+						)}
 					</Button>
 				)}
 			</div>
