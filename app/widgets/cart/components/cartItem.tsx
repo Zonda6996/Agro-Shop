@@ -52,7 +52,7 @@ const CartItem = ({ items }: CartItem) => {
 									<p className='font-light text-sm'>{p.name}</p>
 									{p.quantity > 1 ? (
 										<span className='text-gray-500 text-xs'>
-											{formatPrice(p.price)} ₸/шт
+												{formatPrice(p.price)} ₸/шт
 										</span>
 									) : (
 										''

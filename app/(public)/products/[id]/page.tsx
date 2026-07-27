@@ -1,17 +1,24 @@
 import { ROUTES } from '@/shared/lib/routes'
 import { Badge } from '@/shared/ui/badge'
 import { Container } from '@/widgets/container/container'
-import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { AddToCartButton } from './components/AddToCartButton'
-import { getProductById } from '@/shared/lib/api/products'
+import { getProductById, getSimilarProducts } from '@/shared/lib/api/products'
 import { auth } from '@/shared/lib/auth'
 import { getFavoriteIds } from '@/shared/lib/api/favorites'
 import { FavoriteButton } from '@/shared/ui/favoriteButton'
 import { formatPrice } from '@/shared/lib/utils'
 import Image from 'next/image'
-
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '@/shared/ui/breadcrumb'
+import { SimilarProducts } from './components/SimilarProducts'
 interface ProductPageProps {
 	params: Promise<{ id: string }>
 }
@@ -31,21 +38,48 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 
 	const isFavorite = favoriteIds.includes(product.id)
 
+	const similarProducts = await getSimilarProducts({
+		categoryId: product.categoryId,
+		productId: product.id,
+	})
+
 	const finalPrice = product.isFeatured
 		? Number(product.price) * 0.75
 		: Number(product.price)
 
 	return (
 		<Container>
-			<Link
-				href={ROUTES.PRODUCTS}
-				className='flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors w-fit mt-4'
-			>
-				<ArrowLeftIcon className='w-4 h-4' />
-				Назад к товарам
-			</Link>
+			<Breadcrumb>
+				<BreadcrumbList>
+					<BreadcrumbItem>
+						<BreadcrumbLink asChild>
+							<Link href={ROUTES.HOME}>Главная</Link>
+						</BreadcrumbLink>
+					</BreadcrumbItem>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbLink asChild>
+							<Link href={ROUTES.PRODUCTS}>Ассортимент</Link>
+						</BreadcrumbLink>
+					</BreadcrumbItem>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbLink asChild>
+							<Link
+								href={`${ROUTES.PRODUCTS}?category=${product.category.slug}`}
+							>
+								{product.category.name}
+							</Link>
+						</BreadcrumbLink>
+					</BreadcrumbItem>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbPage>{product.name}</BreadcrumbPage>
+					</BreadcrumbItem>
+				</BreadcrumbList>
+			</Breadcrumb>
 
-			<div className='grid lg:grid-cols-[1.2fr_1fr] grid-cols-1 lg:gap-12 gap-8 mt-8 items-start'>
+			<div className='grid lg:grid-cols-[1.2fr_1fr] grid-cols-1 lg:gap-12 gap-8 mt-8 mb-8 items-start'>
 				<div className='relative aspect-square lg:aspect-[4/3] bg-gray-100 rounded-2xl overflow-hidden'>
 					<Image
 						src={product.image || '/placeholder.svg'}
@@ -139,6 +173,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 					</div>
 				</div>
 			</div>
+			<SimilarProducts products={similarProducts} favoriteIds={favoriteIds} />
 		</Container>
 	)
 }

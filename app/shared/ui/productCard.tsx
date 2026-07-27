@@ -43,6 +43,7 @@ export const ProductCard = ({
 						src={image || '/placeholder.svg'}
 						alt={name}
 						fill
+						sizes='(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
 						className='object-cover'
 					/>
 				</div>
@@ -54,8 +55,9 @@ export const ProductCard = ({
 
 			<div className='flex flex-col gap-3'>
 				<div className='min-h-20 mt-3 '>
-					<h3 className=' text-gray-900'>{name}</h3>
-
+					<Link href={ROUTES.PRODUCT(id)} className='hover:underline'>
+						<h3 className='text-gray-900 line-clamp-2'>{name}</h3>
+					</Link>
 					<div className='flex items-center gap-3'>
 						<span className='text-xl font-semibold text-gray-900'>
 							{formatPrice(finalPrice)} ₸
@@ -66,10 +68,9 @@ export const ProductCard = ({
 							</Badge>
 						)}
 					</div>
-
 					{isFeatured && (
 						<span className='text-sm text-gray-500 line-through'>
-							{price.toString()} ₸
+							{formatPrice(Number(price))} ₸
 						</span>
 					)}
 				</div>
@@ -97,7 +98,9 @@ export const ProductCard = ({
 				{cartItem ? (
 					<QuantityStepper
 						quantity={cartItem.quantity}
-						onIncrease={() => addItem(cartItem)}
+						onIncrease={() => {
+							if (cartItem.quantity < stock) addItem(cartItem)
+						}}
 						onDecrease={() => deleteItem(cartItem.id)}
 					/>
 				) : (
@@ -105,7 +108,9 @@ export const ProductCard = ({
 						className='w-1/2'
 						size='sm'
 						disabled={isOutOfStock}
-						onClick={() => addItem({ id, name, price: finalPrice, image })}
+						onClick={() =>
+							addItem({ id, name, price: finalPrice, image, stock })
+						}
 					>
 						{isOutOfStock ? 'Нет в наличии' : 'В корзину'}
 						{isOutOfStock ? null : (

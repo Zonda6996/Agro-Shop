@@ -49,3 +49,27 @@ export async function getProductById(id: number) {
 		price: Number(product.price),
 	}
 }
+
+export async function getSimilarProducts({
+	categoryId,
+	productId,
+}: {
+	categoryId: number
+	productId: number
+}) {
+	const similarProducts = await prisma.product.findMany({
+		where: {
+			categoryId: categoryId,
+			NOT: { id: productId },
+			stock: { gt: 0 },
+		},
+		include: { category: true },
+		orderBy: { id: 'asc' },
+		take: 6,
+	})
+
+	return similarProducts.map(p => ({
+		...p,
+		price: Number(p.price),
+	}))
+}

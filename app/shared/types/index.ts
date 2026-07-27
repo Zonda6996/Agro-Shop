@@ -25,3 +25,17 @@ export interface SerializedProduct {
 }
 
 export type SortOption = 'price-asc' | 'price-desc' | 'popular'
+
+export interface ProductCardData {
+	id: number
+	name: string
+	price: number
+	image: string | null
+	stock: number
+	isFeatured: boolean
+	category: {
+		id: number
+		name: string
+		slug: string
+	}
+}

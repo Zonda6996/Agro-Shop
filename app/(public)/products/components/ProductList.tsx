@@ -1,5 +1,5 @@
 import { SortOption } from '@/shared/types'
-import { ProductCard } from './ProductCard'
+import { ProductCard } from '@/shared/ui/productCard'
 import { getProducts } from '@/shared/lib/api/products'
 import { auth } from '@/shared/lib/auth'
 import { getFavoriteIds } from '@/shared/lib/api/favorites'

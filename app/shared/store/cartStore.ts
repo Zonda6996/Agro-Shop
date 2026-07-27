@@ -7,6 +7,7 @@ export interface CartItemProps {
 	price: number
 	quantity: number
 	image?: string | null
+	stock: number
 }
 
 export type AddItemPayload = Omit<CartItemProps, 'quantity'>
