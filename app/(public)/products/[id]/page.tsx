@@ -10,6 +10,7 @@ import { auth } from '@/shared/lib/auth'
 import { getFavoriteIds } from '@/shared/lib/api/favorites'
 import { FavoriteButton } from '@/shared/ui/favoriteButton'
 import { formatPrice } from '@/shared/lib/utils'
+import Image from 'next/image'
 
 interface ProductPageProps {
 	params: Promise<{ id: string }>
@@ -44,9 +45,15 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 				Назад к товарам
 			</Link>
 
-			<div className='grid md:grid-cols-2 grid-cols-1 gap-12 mt-8'>
-				<div className='aspect-square bg-gray-100 border rounded-3xl flex items-center justify-center text-gray-400 font-semibold uppercase tracking-wide'>
-					Фото скоро
+			<div className='grid lg:grid-cols-[1.2fr_1fr] grid-cols-1 lg:gap-12 gap-8 mt-8 items-start'>
+				<div className='relative aspect-square lg:aspect-[4/3] bg-gray-100 rounded-2xl overflow-hidden'>
+					<Image
+						src={product.image || '/placeholder.svg'}
+						alt={product.name}
+						fill
+						sizes='(max-width: 1024px) 100vw, 50vw'
+						className='object-cover '
+					/>
 				</div>
 
 				<div className='flex flex-col gap-6 self-start'>

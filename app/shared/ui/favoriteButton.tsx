@@ -46,7 +46,7 @@ export const FavoriteButton = ({
 			<HeartIcon
 				className={clsx(
 					'w-4 h-4 transition-colors ',
-					optimistic ? 'fill-red-500 text-red-500' : 'text-gray-400',
+					optimistic ? 'fill-red-500 text-red-500' : 'text-gray-500',
 				)}
 			/>
 		</Button>

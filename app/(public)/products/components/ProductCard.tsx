@@ -10,6 +10,7 @@ import { SerializedProduct } from '@/shared/types'
 import { formatPrice } from '@/shared/lib/utils'
 import { QuantityStepper } from '@/shared/ui/quantityStepper'
 import { FavoriteButton } from '@/shared/ui/favoriteButton'
+import Image from 'next/image'
 
 export const ProductCard = ({
 	id,
@@ -37,8 +38,13 @@ export const ProductCard = ({
 			</div>
 
 			<Link href={ROUTES.PRODUCT(id)}>
-				<div className='aspect-square bg-gray-100 rounded-2xl mb-5 flex items-center justify-center text-gray-400 font-semibold text-sm uppercase tracking-wide'>
-					Фото скоро
+				<div className='relative aspect-square bg-gray-100 rounded-2xl mb-5 overflow-hidden'>
+					<Image
+						src={image || '/placeholder.svg'}
+						alt={name}
+						fill
+						className='object-cover'
+					/>
 				</div>
 			</Link>
 

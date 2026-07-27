@@ -1,3 +1,4 @@
+import { ROUTES } from '@/shared/lib/routes'
 import { formatPrice } from '@/shared/lib/utils'
 import {
 	selectAddItem,
@@ -8,7 +9,10 @@ import { useCartStore, CartItemProps } from '@/shared/store/cartStore'
 import { Button } from '@/shared/ui/button'
 import { QuantityStepper } from '@/shared/ui/quantityStepper'
 import { Separator } from '@/shared/ui/separator'
+import { SheetClose } from '@/shared/ui/sheet'
 import { Trash2Icon } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface CartItem {
 	items: CartItemProps[]
@@ -23,25 +27,39 @@ const CartItem = ({ items }: CartItem) => {
 		<>
 			{items.map(p => (
 				<div key={p.id}>
-					{/* Фото */}
-					<div className='grid grid-cols-3 gap-3 relative place items-center'>
-						<div className='aspect-square border bg-gray-100 rounded-2xl mb-5 flex items-center justify-center text-gray-400 text-xs uppercase tracking-wide'>
-							Фото скоро
-						</div>
+					<div className='grid grid-cols-3 gap-3 relative items-center'>
+						{/* Фото */}
+						<SheetClose asChild>
+							<Link href={ROUTES.PRODUCT(p.id)}>
+								<div className='relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hover:scale-105 duration-200'>
+									<Image
+										src={p.image || '/placeholder.svg'}
+										alt={p.name}
+										fill
+										sizes='(max-width: 1024px) 100vw, 50vw'
+										className='object-cover '
+									/>
+								</div>
+							</Link>
+						</SheetClose>
 						{/* название, цена за шт., цена общ */}
-						<div>
-							<span className='font-semibold'>
-								{formatPrice(p.price * p.quantity)} ₸
-							</span>
-							<p className='font-light text-sm'>{p.name}</p>
-							{p.quantity > 1 ? (
-								<span className='text-gray-500 text-xs'>
-									{formatPrice(p.price)} ₸/шт
-								</span>
-							) : (
-								''
-							)}
-						</div>
+						<SheetClose asChild>
+							<Link href={ROUTES.PRODUCT(p.id)} className='hover:underline'>
+								<div>
+									<span className='font-semibold'>
+										{formatPrice(p.price * p.quantity)} ₸
+									</span>
+									<p className='font-light text-sm'>{p.name}</p>
+									{p.quantity > 1 ? (
+										<span className='text-gray-500 text-xs'>
+											{formatPrice(p.price)} ₸/шт
+										</span>
+									) : (
+										''
+									)}
+								</div>
+							</Link>
+						</SheetClose>
 
 						{/* Счетчик */}
 						<QuantityStepper

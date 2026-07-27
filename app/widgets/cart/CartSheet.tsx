@@ -83,11 +83,11 @@ export const CartSheet = () => {
 								</p>
 							</div>
 							<SheetClose asChild>
-								<Link href={ROUTES.PRODUCTS}>
-									<Button size='lg'>
+								<Button asChild size='lg'>
+									<Link href={ROUTES.PRODUCTS}>
 										К покупкам <ShoppingCartIcon />
-									</Button>
-								</Link>
+									</Link>
+								</Button>
 							</SheetClose>
 						</div>
 					)}
@@ -102,11 +102,11 @@ export const CartSheet = () => {
 					)}
 					{totalItems > 0 && (
 						<SheetClose asChild>
-							<Link href={ROUTES.CART}>
-								<Button className='w-full'>
+							<Button asChild className='w-full'>
+								<Link href={ROUTES.CART}>
 									Перейти в корзину <MoveRightIcon />
-								</Button>
-							</Link>
+								</Link>
+							</Button>
 						</SheetClose>
 					)}
 					<SheetClose asChild>
