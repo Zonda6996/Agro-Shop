@@ -7,6 +7,14 @@ interface GetProductsParams {
 	search?: string
 }
 
+function buildOrderBy(sort?: SortOption) {
+	if (sort === 'price-asc')
+		return [{ price: 'asc' as const }, { id: 'asc' as const }]
+	if (sort === 'price-desc')
+		return [{ price: 'desc' as const }, { id: 'asc' as const }]
+	return [{ id: 'asc' as const }]
+}
+
 export async function getProducts({
 	category,
 	search,
@@ -18,22 +26,10 @@ export async function getProducts({
 			name: search ? { contains: search, mode: 'insensitive' } : undefined,
 		},
 		include: { category: true },
-		orderBy: {
-			price:
-				sort === 'price-asc'
-					? 'asc'
-					: sort === 'price-desc'
-						? 'desc'
-						: undefined,
-
-			id: 'asc',
-		},
+		orderBy: buildOrderBy(sort),
 	})
 
-	return products.map(p => ({
-		...p,
-		price: Number(p.price),
-	}))
+	return products.map(p => ({ ...p, price: Number(p.price) }))
 }
 
 export async function getProductById(id: number) {
@@ -65,7 +61,7 @@ export async function getSimilarProducts({
 		},
 		include: { category: true },
 		orderBy: { id: 'asc' },
-		take: 6,
+		take: 8,
 	})
 
 	return similarProducts.map(p => ({

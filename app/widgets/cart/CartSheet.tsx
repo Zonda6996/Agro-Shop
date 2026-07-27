@@ -73,7 +73,7 @@ export const CartSheet = () => {
 					)}
 				</SheetHeader>
 				<div className='flex flex-col flex-1 gap-6 px-4 overflow-y-auto'>
-					{totalItems < 1 && (
+					{items.length === 0 ? (
 						<div className='flex flex-1 flex-col items-center justify-center gap-4 text-center'>
 							<ShoppingCartGearIcon size={120} className='text-gray-300' />
 							<div>
@@ -90,8 +90,9 @@ export const CartSheet = () => {
 								</Button>
 							</SheetClose>
 						</div>
+					) : (
+						<CartItem items={items} />
 					)}
-					<CartItem items={items} />
 				</div>
 				<SheetFooter>
 					{totalItems > 0 && (

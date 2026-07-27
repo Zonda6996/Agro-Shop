@@ -11,6 +11,7 @@ import { formatPrice } from '@/shared/lib/utils'
 import { QuantityStepper } from '@/shared/ui/quantityStepper'
 import { FavoriteButton } from '@/shared/ui/favoriteButton'
 import Image from 'next/image'
+import { getFinalPrice } from '../lib/pricing'
 
 export const ProductCard = ({
 	id,
@@ -22,7 +23,7 @@ export const ProductCard = ({
 	isFeatured,
 	isFavorite = false,
 }: SerializedProduct & { isFavorite?: boolean }) => {
-	const finalPrice = isFeatured ? Number(price) * 0.75 : Number(price)
+	const finalPrice = getFinalPrice(Number(price), isFeatured)
 	const addItem = useCartStore(state => state.addItem)
 	const deleteItem = useCartStore(state => state.deleteItem)
 	const cartItem = useCartStore(state =>

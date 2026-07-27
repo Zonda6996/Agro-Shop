@@ -19,6 +19,7 @@ import {
 	BreadcrumbSeparator,
 } from '@/shared/ui/breadcrumb'
 import { SimilarProducts } from './components/SimilarProducts'
+import { getFinalPrice } from '@/shared/lib/pricing'
 interface ProductPageProps {
 	params: Promise<{ id: string }>
 }
@@ -43,9 +44,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 		productId: product.id,
 	})
 
-	const finalPrice = product.isFeatured
-		? Number(product.price) * 0.75
-		: Number(product.price)
+	const finalPrice = getFinalPrice(Number(product.price), product.isFeatured)
 
 	return (
 		<Container>

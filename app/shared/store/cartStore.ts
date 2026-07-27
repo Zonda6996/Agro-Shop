@@ -30,7 +30,12 @@ const cartSlice: StateCreator<CartStore> = set => ({
 			if (exists) {
 				return {
 					items: state.items.map(i =>
-						i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i,
+						i.id === product.id
+							? {
+									...i,
+									quantity: Math.min(i.quantity + 1, i.stock ?? Infinity),
+								}
+							: i,
 					),
 				}
 			}
@@ -51,12 +56,33 @@ const cartSlice: StateCreator<CartStore> = set => ({
 
 	updateQuantity: (id, quantity) =>
 		set(state => ({
-			items: state.items.map(i => (i.id === id ? { ...i, quantity } : i)),
+			items: state.items.map(i =>
+				i.id === id
+					? {
+							...i,
+							quantity: Math.max(1, Math.min(quantity, i.stock ?? Infinity)),
+						}
+					: i,
+			),
 		})),
 
 	clearCart: () => set({ items: [] }),
 })
 
 export const useCartStore = create<CartStore>()(
-	persist(cartSlice, { name: 'cart' }),
+	persist(cartSlice, {
+		name: 'cart',
+		version: 2,
+		migrate: () => ({ items: [] }),
+		merge: (persisted, current) => {
+			const items = ((persisted as CartStore)?.items ?? []).filter(
+				i =>
+					Number.isInteger(i.quantity) &&
+					i.quantity > 0 &&
+					Number.isFinite(i.price) &&
+					i.price >= 0,
+			)
+			return { ...current, items }
+		},
+	}),
 )
