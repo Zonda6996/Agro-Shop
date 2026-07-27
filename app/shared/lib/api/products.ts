@@ -25,6 +25,8 @@ export async function getProducts({
 					: sort === 'price-desc'
 						? 'desc'
 						: undefined,
+
+			id: 'asc',
 		},
 	})
 
